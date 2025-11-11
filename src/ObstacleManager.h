@@ -3,11 +3,11 @@
 #include "Obstacle.h"
 #include "Ball.h"
 
-namespace obstcl
+namespace obstacle
 {
-	namespace mngr
+	namespace manager
 	{
-		bool Collide(Obstacle& obstacle, bll::Ball& ball);
-		bool Collide(Obstacle obstacles[], bll::Ball& ball);
+		bool Collide(Obstacle& obstacle, ball::Ball& ball);
+		bool Collide(Obstacle obstacles[], ball::Ball& ball);
 	}
 }

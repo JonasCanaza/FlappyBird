@@ -2,7 +2,7 @@
 
 #include "BorjaLib.h"
 
-namespace bll
+namespace ball
 {
 	struct Ball
 	{

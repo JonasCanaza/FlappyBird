@@ -1,10 +1,10 @@
 #include "ObstacleManager.h"
 
-namespace obstcl
+namespace obstacle
 {
-	namespace mngr
+	namespace manager
 	{
-		bool Collide(Obstacle& obstacle, bll::Ball& ball)
+		bool Collide(Obstacle& obstacle, ball::Ball& ball)
 		{
 			if (!obstacle.isActive)
 			{
@@ -19,14 +19,14 @@ namespace obstcl
 			return false;
 		}
 
-		bool Collide(Obstacle obstacles[], bll::Ball& ball)
+		bool Collide(Obstacle obstacles[], ball::Ball& ball)
 		{
 			if (!ball.isAlive)
 			{
 				return false;
 			}
 
-			for (int o = 0; o < obstcl::obstaclesAmount; o++)
+			for (int o = 0; o < obstacle::obstaclesAmount; o++)
 			{
 				if (Collide(obstacles[o], ball))
 				{

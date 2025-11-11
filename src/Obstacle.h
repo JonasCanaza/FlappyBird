@@ -2,7 +2,7 @@
 
 #include "BorjaLib.h"
 
-namespace obstcl
+namespace obstacle
 {
 	const int obstaclesAmount = 2;
 	const int maxObstacles = 1;

@@ -4,7 +4,7 @@
 //TEMPORALMENTE AQUI
 float gravity = 1.2f;
 
-namespace bll
+namespace ball
 {
 	void Init(Ball& ball)
 	{

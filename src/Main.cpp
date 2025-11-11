@@ -38,11 +38,11 @@ int main()
 	//prtcl::ParticleActivator mouseParticleActivator;
 	//prtcl::ParticleData mouseParticles[MOUSE_PARTICLE_COUNT]; // Array estático
 
-	bll::Ball ball;
-	bll::Init(ball);
+	ball::Ball ball;
+	ball::Init(ball);
 
-	obstcl::FullObstacle obstacles[obstcl::maxObstacles];
-	obstcl::Init(obstacles);
+	obstacle::FullObstacle obstacles[obstacle::maxObstacles];
+	obstacle::Init(obstacles);
 
 	// Pause
 	btn::Button retryButton;
@@ -168,8 +168,8 @@ int main()
 				currentState = GameState::GAMEPLAY;
 				isPaused = false;
 				gameTimer = 0.0f;
-				bll::Reset(ball);
-				obstcl::Reset(obstacles);
+				ball::Reset(ball);
+				obstacle::Reset(obstacles);
 			}
 
 			if (creditsButton.signal)
@@ -195,8 +195,8 @@ int main()
 				{
 					isPaused = false;
 					gameTimer = 0.0f;
-					bll::Reset(ball);
-					obstcl::Reset(obstacles);
+					ball::Reset(ball);
+					obstacle::Reset(obstacles);
 				}
 
 				if (returnButton.signal || ctrl::IsKeyPressed(pauseKey))
@@ -221,17 +221,17 @@ int main()
 				isPaused = true;
 			}
 
-			bll::UpdateInput(ball);
+			ball::UpdateInput(ball);
 
-			obstcl::Update(obstacles);
+			obstacle::Update(obstacles);
 
-			bll::Update(ball);
+			ball::Update(ball);
 
-			for (int o = 0; o < obstcl::maxObstacles; o++)
+			for (int o = 0; o < obstacle::maxObstacles; o++)
 			{
-				if (obstcl::mngr::Collide(obstacles[o].obstacles, ball))
+				if (obstacle::manager::Collide(obstacles[o].obstacles, ball))
 				{
-					bll::Die(ball);
+					ball::Die(ball);
 				}
 			}
 
@@ -272,9 +272,9 @@ int main()
 
 			//prtcl::Draw(mouseParticles);
 
-			obstcl::Draw(obstacles);
+			obstacle::Draw(obstacles);
 
-			bll::Draw(ball);
+			ball::Draw(ball);
 
 			btn::Draw(pauseButton);
 

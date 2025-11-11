@@ -1,6 +1,6 @@
 #include "Obstacle.h"
 
-namespace obstcl
+namespace obstacle
 {
 	void Init(Obstacle& obstacle)
 	{
