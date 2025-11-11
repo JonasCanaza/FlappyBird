@@ -2,13 +2,13 @@
 
 #include "BorjaLib.h"
 
-namespace obstcl {
-
+namespace obstcl
+{
 	const int obstaclesAmount = 2;
 	const int maxObstacles = 1;
 
-	struct Obstacle {
-
+	struct Obstacle
+	{
 		bool isActive = false;
 
 		vec::Vector2 pos = { 0.0f,1.25f };
@@ -20,8 +20,8 @@ namespace obstcl {
 		bColor color = DARKGREEN_B;
 	};
 
-	struct FullObstacle {
-
+	struct FullObstacle
+	{
 		bool isActive = false;
 
 		vec::Vector2 pos = { 1.25f,0.5f };

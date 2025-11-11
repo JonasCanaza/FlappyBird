@@ -2,10 +2,10 @@
 
 #include "BorjaLib.h"
 
-namespace bll {
-
-	struct Ball {
-
+namespace bll
+{
+	struct Ball
+	{
 		bool isActive = false;
 
 		bool isAlive = false;

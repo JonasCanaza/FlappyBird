@@ -4,8 +4,8 @@
 //TEMPORALMENTE AQUI
 float gravity = 1.2f;
 
-namespace bll {
-
+namespace bll
+{
 	void Init(Ball& ball)
 	{
 		ball = Ball();
@@ -21,27 +21,32 @@ namespace bll {
 
 	void UpdateInput(Ball& ball)
 	{
-		if (!ball.isAlive || !ball.isActive) {
+		if (!ball.isAlive || !ball.isActive)
+		{
 			return;
 		}
 
-		if (ctrl::IsKeyPressed(ball.upKey)) {
+		if (ctrl::IsKeyPressed(ball.upKey))
+		{
 			//ball.vel.y = ball.moveForce;
 			ball.vel.y = ball.jumpForce;
 		}
 
-		if (ctrl::IsKeyPressed(ball.downKey)) {
+		if (ctrl::IsKeyPressed(ball.downKey))
+		{
 			//ball.vel.y = -ball.moveForce;
 		}
 
-		if (ctrl::IsMousePressed(ball.jumpButton)) {
+		if (ctrl::IsMousePressed(ball.jumpButton))
+		{
 			ball.vel.y = ball.jumpForce;
 		}
 	}
 
 	void Update(Ball& ball)
 	{
-		if (!ball.isAlive || !ball.isActive) {
+		if (!ball.isAlive || !ball.isActive)
+		{
 			return;
 		}
 
@@ -49,11 +54,14 @@ namespace bll {
 
 		ball.pos += ball.vel * rend::deltaTime;
 
-		if (ball.pos.y + ball.size.y > 1.0f) {
+		if (ball.pos.y + ball.size.y > 1.0f)
+		{
 			ball.pos.y = 1.0f - ball.size.y;
 			ball.vel = 0.0f;
 		}
-		if (ball.pos.y - ball.size.y < 0.0f) {
+
+		if (ball.pos.y - ball.size.y < 0.0f)
+		{
 			ball.pos.y = ball.size.y;
 			Die(ball);
 		}
@@ -61,15 +69,19 @@ namespace bll {
 
 	void Draw(Ball& ball)
 	{
-		if (!ball.isActive) {
+		if (!ball.isActive)
+		{
 			return;
 		}
-		drw::Circle(ball.pos, ball.size, ball.color);
-		if (!ball.isAlive) {
 
+		drw::Circle(ball.pos, ball.size, ball.color);
+
+		if (!ball.isAlive)
+		{
 			drw::Circle(ball.crashPoint, ball.size * (1.0f/3.0f), MAGENTA_B);
 		}
 	}
+
 	void Die(Ball& ball)
 	{
 		ball.isAlive = false;

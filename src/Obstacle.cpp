@@ -1,7 +1,7 @@
 #include "Obstacle.h"
 
-namespace obstcl {
-
+namespace obstcl
+{
 	void Init(Obstacle& obstacle)
 	{
 		obstacle = Obstacle();
@@ -92,13 +92,15 @@ namespace obstcl {
 
 	void Update(Obstacle& obstacle)
 	{
-		if (!obstacle.isActive) {
+		if (!obstacle.isActive)
+		{
 			return;
 		}
 
 		obstacle.pos += obstacle.vel * rend::deltaTime;
 
-		if (obstacle.pos.x + (obstacle.size.x / 2.0f) < 0.0f) {
+		if (obstacle.pos.x + (obstacle.size.x / 2.0f) < 0.0f)
+		{
 			Reset(obstacle);
 		}
 	}
@@ -113,7 +115,8 @@ namespace obstcl {
 
 	void Update(FullObstacle& fullObstacle)
 	{
-		if (!fullObstacle.isActive) {
+		if (!fullObstacle.isActive)
+		{
 			return;
 		}
 
@@ -125,7 +128,8 @@ namespace obstcl {
 			Update(fullObstacle.obstacles[o]);
 		}
 
-		if (fullObstacle.pos.x + (fullObstacle.size.x / 2.0f) < 0.0f) {
+		if (fullObstacle.pos.x + (fullObstacle.size.x / 2.0f) < 0.0f)
+		{
 			Reset(fullObstacle);
 		}
 	}
@@ -140,7 +144,8 @@ namespace obstcl {
 
 	void Draw(Obstacle& obstacle)
 	{
-		if (!obstacle.isActive) {
+		if (!obstacle.isActive)
+		{
 			return;
 		}
 
@@ -159,6 +164,7 @@ namespace obstcl {
 	{
 		Draw(fullObstacle.obstacles);
 	}
+
 	void Draw(FullObstacle fullObstacles[])
 	{
 		for (int o = 0; o < maxObstacles; o++)

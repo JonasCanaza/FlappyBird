@@ -2,13 +2,14 @@
 #include "Ball.h"
 #include "ObstacleManager.h"
 
-int main() {
-
+int main()
+{
 	bool isPaused = false;
 
 	ctrl::Key pauseKey = ctrl::Key::ESCAPE;
 
-	enum class GameState {
+	enum class GameState
+	{
 		MAIN_MENU,
 		GAMEPLAY,
 		CREDITS
@@ -147,8 +148,8 @@ int main() {
 	versionTextData.text = "v0.2";
 	versionTextData.color = SEMITRANSPARENT_B;
 
-	while (isRunning) {
-
+	while (isRunning)
+	{
 		isRunning = !rend::ShouldExit();
 
 		//Update
@@ -162,43 +163,52 @@ int main() {
 			btn::UpdateInput(creditsButton);
 			btn::UpdateInput(exitButton);
 
-			if (playButton.signal) {
+			if (playButton.signal)
+			{
 				currentState = GameState::GAMEPLAY;
 				isPaused = false;
 				gameTimer = 0.0f;
 				bll::Reset(ball);
 				obstcl::Reset(obstacles);
 			}
-			if (creditsButton.signal) {
+
+			if (creditsButton.signal)
+			{
 				currentState = GameState::CREDITS;
 			}
-			if (exitButton.signal) {
+
+			if (exitButton.signal)
+			{
 				isRunning = false;
 			}
-			break;
 
+			break;
 		case GameState::GAMEPLAY:
 
-			if (isPaused) {
-
+			if (isPaused)
+			{
 				btn::UpdateInput(retryButton);
 				btn::UpdateInput(returnButton);
 				btn::UpdateInput(exitPauseButton);
 
-				if (retryButton.signal){
+				if (retryButton.signal)
+				{
 					isPaused = false;
 					gameTimer = 0.0f;
 					bll::Reset(ball);
 					obstcl::Reset(obstacles);
 				}
 
-				if (returnButton.signal || ctrl::IsKeyPressed(pauseKey)) {
+				if (returnButton.signal || ctrl::IsKeyPressed(pauseKey))
+				{
 					isPaused = false;
 				}
 
-				if (exitPauseButton.signal) {
+				if (exitPauseButton.signal)
+				{
 					currentState = GameState::MAIN_MENU;
 				}
+
 				break;
 			}
 
@@ -206,7 +216,8 @@ int main() {
 
 			btn::UpdateInput(pauseButton);
 
-			if (pauseButton.signal || ctrl::IsKeyPressed(pauseKey)) {
+			if (pauseButton.signal || ctrl::IsKeyPressed(pauseKey))
+			{
 				isPaused = true;
 			}
 
@@ -218,7 +229,8 @@ int main() {
 
 			for (int o = 0; o < obstcl::maxObstacles; o++)
 			{
-				if (obstcl::mngr::Collide(obstacles[o].obstacles, ball)) {
+				if (obstcl::mngr::Collide(obstacles[o].obstacles, ball))
+				{
 					bll::Die(ball);
 				}
 			}
@@ -231,11 +243,15 @@ int main() {
 		case GameState::CREDITS:
 
 			btn::UpdateInput(backButton);
-			if (backButton.signal) {
+
+			if (backButton.signal)
+			{
 				currentState = GameState::MAIN_MENU;
 			}
+
 			break;
 		}
+
 		bLib::UpdateEnd();
 
 		//Draw
@@ -250,8 +266,8 @@ int main() {
 			btn::Draw(creditsButton);
 			btn::Draw(exitButton);
 			drw::Text(versionTextData.text.c_str(), versionTextData, { 0.97f, 0.045f }, versionTextData.fontSize, { 0,0 }, WHITE_B);
-			break;
 
+			break;
 		case GameState::GAMEPLAY:
 
 			//prtcl::Draw(mouseParticles);
@@ -264,7 +280,8 @@ int main() {
 
 			//drw::Text(scoreTextData.text.c_str(),scoreTextData, { 0.5f, 0.5f }, scoreTextData.fontSize, { 0,0 }, WHITE_B);
 			
-			if (isPaused) {
+			if (isPaused)
+			{
 				drw::Rectangle(vec::Vector4(0.0f, 0.0f, 1.0f, 1.0f), SEMITRANSPARENT_B);
 				btn::Draw(retryButton);
 				btn::Draw(returnButton);
@@ -272,21 +289,20 @@ int main() {
 
 				scoreTextData.text = std::to_string(gameTimer);
 			}
-			else {
+			else
+			{
 				scoreTextData.text = std::to_string(gameTimer);
 			}
 			
 			break;
-
 		case GameState::CREDITS:
 
 			btn::Draw(backButton);
 			drw::Text(creditsTextData.text.c_str(), creditsTextData, { 0.5f, 0.6f }, creditsTextData.fontSize, { 0,0 }, WHITE_B);
 			drw::Text(versionTextData.text.c_str(), versionTextData, { 0.97f, 0.045f }, versionTextData.fontSize, { 0,0 }, WHITE_B);
+
 			break;
 		}
-
-
 
 		drw::End();
 
@@ -295,5 +311,6 @@ int main() {
 	}
 
 	rend::Close();
+
 	return 0;
 }
