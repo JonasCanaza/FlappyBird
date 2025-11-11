@@ -1,4 +1,5 @@
 #include "BorjaLib.h"
+
 #include "Ball.h"
 
 //TEMPORALMENTE AQUI
@@ -28,13 +29,12 @@ namespace ball
 
 		if (ctrl::IsKeyPressed(ball.upKey))
 		{
-			//ball.vel.y = ball.moveForce;
 			ball.vel.y = ball.jumpForce;
 		}
 
 		if (ctrl::IsKeyPressed(ball.downKey))
 		{
-			//ball.vel.y = -ball.moveForce;
+
 		}
 
 		if (ctrl::IsMousePressed(ball.jumpButton))

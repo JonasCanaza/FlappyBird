@@ -25,7 +25,6 @@ namespace flappyBird
 		GameState currentState = GameState::MAIN_MENU;
 
 		float gameTimer = 0.0f;
-		//const int MOUSE_PARTICLE_COUNT = 5;
 
 		//Menu
 		btn::Button playButton;
@@ -39,9 +38,6 @@ namespace flappyBird
 		// Gameplay
 		btn::Button pauseButton;
 		drw::TextData scoreTextData;
-		//drw::AnimationData mouseAnim;
-		//prtcl::ParticleActivator mouseParticleActivator;
-		//prtcl::ParticleData mouseParticles[MOUSE_PARTICLE_COUNT]; // Array estático
 
 		ball::Ball ball;
 		ball::Init(ball);
@@ -56,27 +52,6 @@ namespace flappyBird
 
 		//Version Overlay
 		drw::TextData versionTextData;
-
-		//drw::SpriteData fireFrame1;
-		//fireFrame1.file = "res/sprites/fire1.png";
-		//fireFrame1.size = { 0.1f, 0.1f };
-
-		//drw::SpriteData fireFrame2;
-		//fireFrame2.file = "res/sprites/fire2.png";
-		//fireFrame2.size = { 0.1f, 0.1f };
-
-		//drw::SpriteData fireFrame3;
-		//fireFrame3.file = "res/sprites/fire3.png";
-		//fireFrame3.size = { 0.1f, 0.1f };
-
-		//drw::SpriteData fireFrame4;
-		//fireFrame4.file = "res/sprites/fire4.png";
-		//fireFrame4.size = { 0.1f, 0.1f };
-
-		//drw::SpriteData fireFrames[] = { fireFrame1, fireFrame2, fireFrame3, fireFrame4 };
-
-		//mouseAnim.duration = 0.25f;
-		//drw::InitAnimData(mouseAnim, fireFrames, 4);
 
 		// Inicializacion
 
@@ -121,18 +96,6 @@ namespace flappyBird
 		btn::Init(pauseButton);
 
 		scoreTextData.fontSize = 0.1f;
-
-		//mouseParticleActivator.loop = true;
-		//mouseParticleActivator.animated = true;
-		//mouseParticleActivator.animation = mouseAnim;
-		//mouseParticleActivator.amount = MOUSE_PARTICLE_COUNT;
-		//mouseParticleActivator.lifetime = { 0.2f, 0.5f };
-		//mouseParticleActivator.direction = { 0.0f, -1.0f };
-		//mouseParticleActivator.spread = 180.0f;
-		//mouseParticleActivator.minSize = { 0.005f, 0.005f };
-		//mouseParticleActivator.maxSize = { 0.02f, 0.02f };
-		//mouseParticleActivator.speed = { 0.1f, 0.3f };
-		//prtcl::Init(mouseParticleActivator, mouseParticles);
 
 		retryButton = templateButton;
 		retryButton.pos = { 0.5f, 0.7f };
@@ -240,11 +203,7 @@ namespace flappyBird
 					}
 				}
 
-				//mouseParticleActivator.pos = rend::mousePos;
-				//prtcl::Update(mouseParticleActivator, mouseParticles);
-
 				break;
-
 			case GameState::CREDITS:
 
 				btn::UpdateInput(backButton);
@@ -275,15 +234,11 @@ namespace flappyBird
 				break;
 			case GameState::GAMEPLAY:
 
-				//prtcl::Draw(mouseParticles);
-
 				obstacle::Draw(obstacles);
 
 				ball::Draw(ball);
 
 				btn::Draw(pauseButton);
-
-				//drw::Text(scoreTextData.text.c_str(),scoreTextData, { 0.5f, 0.5f }, scoreTextData.fontSize, { 0,0 }, WHITE_B);
 
 				if (isPaused)
 				{
@@ -310,9 +265,6 @@ namespace flappyBird
 			}
 
 			drw::End();
-
-			//Sounds
-
 		}
 
 		rend::Close();
