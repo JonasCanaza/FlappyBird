@@ -87,7 +87,7 @@ namespace flappyBird
 		btn::Init(backButton);
 
 		creditsTextData.fontSize = 0.05f;
-		creditsTextData.text = "Made by Borja Lia";
+		creditsTextData.text = "Made by Borja Lia and Jonas Canaza";
 
 		//Gameplay
 		pauseButton = templateButton;
