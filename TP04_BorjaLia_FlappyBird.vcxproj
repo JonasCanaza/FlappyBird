@@ -170,12 +170,7 @@ xcopy "$(SolutionDir)res\sprites" "$(OutDir)res\sprites" /i /y</Command>
       <AdditionalDependencies>BorjaLib.lib;raylib.lib;winmm.lib;sigil.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)lib\sigil-vc2015-win64\lib\*.dll" "$(OutDir)" /y
-xcopy "$(SolutionDir)config\" "$(OutDir)config\" /i /y
-xcopy "$(SolutionDir)data\" "$(OutDir)data\" /i /y
-xcopy "$(SolutionDir)res\audio\" "$(OutDir)res\audio\" /i /y
-xcopy "$(SolutionDir)res\fonts\" "$(OutDir)res\fonts\" /i /y
-xcopy "$(SolutionDir)res\sprites" "$(OutDir)res\sprites" /i /y</Command>
+      <Command>"$(SolutionDir)scripts\copy_files.bat" "$(SolutionDir)" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -199,12 +194,7 @@ xcopy "$(SolutionDir)res\sprites" "$(OutDir)res\sprites" /i /y</Command>
       <AdditionalDependencies>BorjaLib.lib;raylib.lib;winmm.lib;sigil.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)lib\sigil-vc2015-win64\lib\*.dll" "$(OutDir)" /y
-xcopy "$(SolutionDir)config\" "$(OutDir)config\" /i /y
-xcopy "$(SolutionDir)data\" "$(OutDir)data\" /i /y
-xcopy "$(SolutionDir)res\audio\" "$(OutDir)res\audio\" /i /y
-xcopy "$(SolutionDir)res\fonts\" "$(OutDir)res\fonts\" /i /y
-xcopy "$(SolutionDir)res\sprites" "$(OutDir)res\sprites" /i /y</Command>
+      <Command>"$(SolutionDir)scripts\copy_files.bat" "$(SolutionDir)" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
