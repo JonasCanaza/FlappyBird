@@ -8,9 +8,12 @@
 
 namespace flappyBird
 {
+	static bool isMultiplayer;
+
 	void Play()
 	{
 		bool isPaused = false;
+		isMultiplayer = false;
 
 		ctrl::Key pauseKey = ctrl::Key::ESCAPE;
 
@@ -28,7 +31,8 @@ namespace flappyBird
 		float gameTimer = 0.0f;
 
 		//Menu
-		btn::Button playButton;
+		btn::Button singlePlayer;
+		btn::Button twoPlayers;
 		btn::Button creditsButton;
 		btn::Button exitButton;
 
@@ -57,7 +61,7 @@ namespace flappyBird
 		// Inicializacion
 
 		btn::Button templateButton;
-		templateButton.size = { 0.275f, 0.075f };
+		templateButton.size = { 0.450f, 0.085f };
 		templateButton.textData.fontSize = 0.075f;
 		templateButton.useSprite = false;
 		templateButton.activeColor = SEMITRANSPARENT_B;
@@ -66,18 +70,23 @@ namespace flappyBird
 
 
 		//Menu
-		playButton = templateButton;
-		playButton.pos = { 0.5f, 0.6f };
-		playButton.textData.text = "Play";
-		btn::Init(playButton);
+		singlePlayer = templateButton;
+		singlePlayer.pos = { 0.5f, 0.5f };
+		singlePlayer.textData.text = "Single Player";
+		btn::Init(singlePlayer);
+
+		twoPlayers = templateButton;
+		twoPlayers.pos = { 0.5f, 0.4f };
+		twoPlayers.textData.text = "Two Players";
+		btn::Init(twoPlayers);
 
 		creditsButton = templateButton;
-		creditsButton.pos = { 0.5f, 0.5f };
+		creditsButton.pos = { 0.5f, 0.3f };
 		creditsButton.textData.text = "Credits";
 		btn::Init(creditsButton);
 
 		exitButton = templateButton;
-		exitButton.pos = { 0.5f, 0.4f };
+		exitButton.pos = { 0.5f, 0.2f };
 		exitButton.textData.text = "Exit";
 		btn::Init(exitButton);
 
@@ -132,12 +141,22 @@ namespace flappyBird
 			{
 			case GameState::MAIN_MENU:
 
-				btn::UpdateInput(playButton);
+				btn::UpdateInput(singlePlayer);
+				btn::UpdateInput(twoPlayers);
 				btn::UpdateInput(creditsButton);
 				btn::UpdateInput(exitButton);
 
-				if (playButton.signal)
+				if (singlePlayer.signal || twoPlayers.signal)
 				{
+					if (singlePlayer.signal)
+					{
+						isMultiplayer = false;
+					}
+					else
+					{
+						isMultiplayer = true;
+					}
+
 					currentState = GameState::GAMEPLAY;
 					isPaused = false;
 					gameTimer = 0.0f;
@@ -235,7 +254,8 @@ namespace flappyBird
 			{
 			case GameState::MAIN_MENU:
 
-				btn::Draw(playButton);
+				btn::Draw(singlePlayer);
+				btn::Draw(twoPlayers);
 				btn::Draw(creditsButton);
 				btn::Draw(exitButton);
 				drw::Text(versionTextData.text.c_str(), versionTextData, { 0.97f, 0.045f }, versionTextData.fontSize, { 0,0 }, WHITE_B);
