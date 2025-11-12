@@ -114,7 +114,7 @@ namespace flappyBird
 		btn::Init(exitPauseButton);
 
 		versionTextData.fontSize = 0.05f;
-		versionTextData.text = "v0.2";
+		versionTextData.text = "v0.3";
 		versionTextData.color = SEMITRANSPARENT_B;
 
 		// Background
