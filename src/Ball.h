@@ -23,10 +23,7 @@ namespace ball
 
 		bColor color = MAROON_B;
 
-		ctrl::ButtonMouse jumpButton = ctrl::ButtonMouse::LMB;
-
-		ctrl::Key upKey = ctrl::Key::UP;
-		ctrl::Key downKey = ctrl::Key::DOWN;
+		ctrl::Key jumpKey = ctrl::Key::UP;
 	};
 
 	void Init(Ball& ball);

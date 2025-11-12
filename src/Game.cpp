@@ -44,8 +44,11 @@ namespace flappyBird
 		btn::Button pauseButton;
 		drw::TextData scoreTextData;
 
-		ball::Ball ball;
-		ball::Init(ball);
+		ball::Ball ballOne;
+		ball::Init(ballOne);
+
+		ball::Ball ballTwo;
+		ball::Init(ballTwo);
 
 		obstacle::FullObstacle obstacles[obstacle::maxObstacles];
 		obstacle::Init(obstacles);
@@ -160,7 +163,19 @@ namespace flappyBird
 					currentState = GameState::GAMEPLAY;
 					isPaused = false;
 					gameTimer = 0.0f;
-					ball::Reset(ball);
+
+					ball::Reset(ballOne);
+					ball::Reset(ballTwo);
+
+					ballOne.pos = { 0.25f, 0.5f };
+					ballTwo.pos = { 0.15f, 0.5f };
+
+					ballOne.color = RED_B;
+					ballTwo.color = BLUE_B;
+
+					ballOne.jumpKey = ctrl::Key::UP;
+					ballTwo.jumpKey = ctrl::Key::W;
+
 					obstacle::Reset(obstacles);
 				}
 
@@ -187,7 +202,19 @@ namespace flappyBird
 					{
 						isPaused = false;
 						gameTimer = 0.0f;
-						ball::Reset(ball);
+
+						ball::Reset(ballOne);
+						ball::Reset(ballTwo);
+
+						ballOne.pos = { 0.25f, 0.5f };
+						ballTwo.pos = { 0.15f, 0.5f };
+
+						ballOne.color = RED_B;
+						ballTwo.color = BLUE_B;
+
+						ballOne.jumpKey = ctrl::Key::UP;
+						ballTwo.jumpKey = ctrl::Key::W;
+
 						obstacle::Reset(obstacles);
 					}
 
@@ -217,17 +244,27 @@ namespace flappyBird
 					isPaused = true;
 				}
 
-				ball::UpdateInput(ball);
+				ball::UpdateInput(ballOne);
+				ball::Update(ballOne);
+
+				if (isMultiplayer)
+				{
+					ball::UpdateInput(ballTwo);
+					ball::Update(ballTwo);
+				}
 
 				obstacle::Update(obstacles);
 
-				ball::Update(ball);
-
 				for (int o = 0; o < obstacle::maxObstacles; o++)
 				{
-					if (obstacle::manager::Collide(obstacles[o].obstacles, ball))
+					if (obstacle::manager::Collide(obstacles[o].obstacles, ballOne))
 					{
-						ball::Die(ball);
+						ball::Die(ballOne);
+					}
+
+					if (isMultiplayer && obstacle::manager::Collide(obstacles[o].obstacles, ballTwo))
+					{
+						ball::Die(ballTwo);
 					}
 				}
 
@@ -265,9 +302,14 @@ namespace flappyBird
 
 				backgroundManager::Draw();
 
-				obstacle::Draw(obstacles);
+				ball::Draw(ballOne);
 
-				ball::Draw(ball);
+				if (isMultiplayer)
+				{
+					ball::Draw(ballTwo);
+				}
+
+				obstacle::Draw(obstacles);
 
 				btn::Draw(pauseButton);
 

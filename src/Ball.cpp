@@ -27,17 +27,7 @@ namespace ball
 			return;
 		}
 
-		if (ctrl::IsKeyPressed(ball.upKey))
-		{
-			ball.vel.y = ball.jumpForce;
-		}
-
-		if (ctrl::IsKeyPressed(ball.downKey))
-		{
-
-		}
-
-		if (ctrl::IsMousePressed(ball.jumpButton))
+		if (ctrl::IsKeyPressed(ball.jumpKey))
 		{
 			ball.vel.y = ball.jumpForce;
 		}
