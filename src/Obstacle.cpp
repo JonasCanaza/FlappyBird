@@ -34,9 +34,7 @@ namespace obstacle
 	{
 		obstacle = Obstacle();
 		obstacle.pos.x = 1.0f + (obstacle.size.x / 2.0f);
-
 		obstacle.pos.y = mth::GetRandomf((obstacle.size.y / 2.0f), 1.0f - (obstacle.size.y / 2.0f));
-
 		obstacle.isActive = true;
 	}
 
@@ -52,9 +50,7 @@ namespace obstacle
 	{
 		fullObstacle = FullObstacle();
 		fullObstacle.pos.x = 1.0f + (fullObstacle.size.x / 2.0f);
-
 		fullObstacle.pos.y = 0.5f;
-
 		fullObstacle.isActive = true;
 
 		for (int o = 0; o < obstaclesAmount; o++)
@@ -67,8 +63,8 @@ namespace obstacle
 		vec::Vector2 playerSpacePos = { 0.0f, 0.0f };
 		vec::Vector2 playerSpaceSize = { 0.0f, 0.0f };
 
-		playerSpacePos.y = mth::GetRandomf(0.2f,0.8f);
-		playerSpaceSize.y = 0.25f;
+		playerSpacePos.y = mth::GetRandomf(0.3f,0.7f);
+		playerSpaceSize.y = 0.35f;
 
 		fullObstacle.obstacles[0].pos.y = (playerSpacePos.y - playerSpaceSize.y / 2.0f) / 2.0f;
 		fullObstacle.obstacles[0].size.y = 2.0f * fullObstacle.obstacles[0].pos.y;

@@ -3,7 +3,7 @@
 #include "Ball.h"
 
 //TEMPORALMENTE AQUI
-float gravity = 1.2f;
+static const float gravity = 1.8f;
 
 namespace ball
 {

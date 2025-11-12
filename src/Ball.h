@@ -14,7 +14,7 @@ namespace ball
 
 		vec::Vector2 vel = { 0.0f,0.0f };
 
-		float jumpForce = 0.75f;
+		float jumpForce = 0.85f;
 		float moveForce = 0.5f;
 
 		vec::Vector2 size = { 0.025f,0.025f };

@@ -15,7 +15,7 @@ namespace obstacle
 
 		vec::Vector2 vel = { 0.0f,0.0f };
 
-		vec::Vector2 size = { 0.05f,0.25f };
+		vec::Vector2 size = { 0.15f,0.25f };
 
 		bColor color = DARKGREEN_B;
 	};
@@ -26,7 +26,7 @@ namespace obstacle
 
 		vec::Vector2 pos = { 1.25f,0.5f };
 
-		vec::Vector2 vel = { -0.75f,0.0f };
+		vec::Vector2 vel = { -0.5f,0.0f };
 
 		vec::Vector2 size = { 0.05f,1.0f };
 
