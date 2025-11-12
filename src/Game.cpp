@@ -4,6 +4,7 @@
 
 #include "Ball.h"
 #include "ObstacleManager.h"
+#include "BackgroundManager.h"
 
 namespace flappyBird
 {
@@ -116,6 +117,10 @@ namespace flappyBird
 		versionTextData.text = "v0.2";
 		versionTextData.color = SEMITRANSPARENT_B;
 
+		// Background
+
+		backgroundManager::Init();
+
 		while (isRunning)
 		{
 			isRunning = !rend::ShouldExit();
@@ -179,6 +184,10 @@ namespace flappyBird
 
 					break;
 				}
+				else
+				{
+					backgroundManager::Update();
+				}
 
 				gameTimer += rend::deltaTime;
 
@@ -233,6 +242,8 @@ namespace flappyBird
 
 				break;
 			case GameState::GAMEPLAY:
+
+				backgroundManager::Draw();
 
 				obstacle::Draw(obstacles);
 
