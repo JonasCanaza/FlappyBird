@@ -1,10 +1,10 @@
-#include "GameplayState.h"
+#include "states/GameplayState.h"
 
 #include "BorjaLib.h"
 
-#include "Game.h"
-#include "Ball.h"
-#include "ObstacleManager.h"
+#include "game/Game.h"
+#include "entities/Ball.h"
+#include "entities/ObstacleManager.h"
 
 namespace gameplayState
 {

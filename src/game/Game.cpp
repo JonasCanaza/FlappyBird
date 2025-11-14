@@ -1,11 +1,11 @@
-#include "Game.h"
+#include "game/Game.h"
 
 #include "BorjaLib.h"
 
-#include "MenuState.h"
-#include "GameplayState.h"
-#include "CreditsState.h"
-#include "BackgroundManager.h"
+#include "states/MenuState.h"
+#include "states/GameplayState.h"
+#include "states/CreditsState.h"
+#include "background/BackgroundManager.h"
 
 namespace flappyBird
 {

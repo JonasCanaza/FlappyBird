@@ -15,55 +15,55 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Ball.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Obstacle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ObstacleManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\BackgroundManager.cpp">
+    <ClCompile Include="src\background\BackgroundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MenuState.cpp">
+    <ClCompile Include="src\entities\Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameplayState.cpp">
+    <ClCompile Include="src\entities\Obstacle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CreditsState.cpp">
+    <ClCompile Include="src\entities\ObstacleManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\CreditsState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\GameplayState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\MenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Ball.h">
+    <ClInclude Include="src\background\BackgroundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Obstacle.h">
+    <ClInclude Include="src\entities\Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ObstacleManager.h">
+    <ClInclude Include="src\entities\Obstacle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game.h">
+    <ClInclude Include="src\entities\ObstacleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BackgroundManager.h">
+    <ClInclude Include="src\game\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MenuState.h">
+    <ClInclude Include="src\states\CreditsState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameplayState.h">
+    <ClInclude Include="src\states\GameplayState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\CreditsState.h">
+    <ClInclude Include="src\states\MenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

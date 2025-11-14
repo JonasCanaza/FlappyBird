@@ -1,9 +1,9 @@
-#include "MenuState.h"
+#include "states/MenuState.h"
 
 #include "BorjaLib.h"
 
-#include "Game.h"
-#include "GameplayState.h"
+#include "game/Game.h"
+#include "states/GameplayState.h"
 
 namespace menuState
 {

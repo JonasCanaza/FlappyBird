@@ -1,8 +1,8 @@
-#include "CreditsState.h"
+#include "states/CreditsState.h"
 
 #include "BorjaLib.h"
 
-#include "Game.h"
+#include "game/Game.h"
 
 namespace creditsState
 {
