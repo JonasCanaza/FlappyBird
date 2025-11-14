@@ -72,10 +72,7 @@ namespace obstacle
 
 		fullObstacle.obstacles[1].pos.y = (playerSpacePos.y + playerSpaceSize.y / 2.0f) + (1.0f - (playerSpacePos.y + playerSpaceSize.y / 2.0f))/2.0f;
 		fullObstacle.obstacles[1].size.y = 2.0f * (1.0f - fullObstacle.obstacles[1].pos.y);
-
-		fullObstacle.obstacles[2].pos.y = playerSpacePos.y;
-		fullObstacle.obstacles[2].size.y = playerSpaceSize.y;
-		fullObstacle.obstacles[2].color = BLUE_B;
+		fullObstacle.obstacles[1].color = RED_B;
 	}
 
 	void Reset(FullObstacle fullObstacles[])
