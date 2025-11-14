@@ -4,7 +4,7 @@
 
 namespace backgroundManager
 {
-	static float aspect = rend::windowSize.x / rend::windowSize.y;
+	static float aspect;
 
 	static drw::SpriteData back;
 	static float backSpeed;
@@ -22,6 +22,8 @@ namespace backgroundManager
 
 	void Init()
 	{
+		aspect = rend::windowSize.x / rend::windowSize.y;
+
 		back.file = "res/sprites/backgrounds/back.png";
 		back.size = { aspect, 1.0f };
 		back.offset = { 0.0f, 0.0f };
