@@ -45,6 +45,7 @@
     <ClCompile Include="src\interface\Button.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\background\BackgroundManager.h">
