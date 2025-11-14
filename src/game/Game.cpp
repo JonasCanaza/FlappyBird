@@ -6,6 +6,7 @@
 #include "states/GameplayState.h"
 #include "states/CreditsState.h"
 #include "background/BackgroundManager.h"
+#include "interface/Button.h"
 
 namespace flappyBird
 {
@@ -92,6 +93,7 @@ namespace flappyBird
 		isMultiplayer = false;
 
 		backgroundManager::Init();
+		button::Init();
 
 		menuState::Init();
 		gameplayState::Init();

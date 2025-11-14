@@ -4,6 +4,7 @@
 
 #include "game/Game.h"
 #include "states/GameplayState.h"
+#include "interface/Button.h"
 
 namespace menuState
 {
@@ -16,30 +17,22 @@ namespace menuState
 
 	void Init()
 	{
-		btn::Button templateButton;
-		templateButton.size = { 0.450f, 0.085f };
-		templateButton.textData.fontSize = 0.075f;
-		templateButton.useSprite = false;
-		templateButton.activeColor = SEMITRANSPARENT_B;
-		templateButton.mainColor = SEMITRANSPARENT_B;
-		templateButton.hoveredColor = SEMITRANSPARENT_B;
-
-		singlePlayer = templateButton;
+		singlePlayer = button::GetTemplate();
 		singlePlayer.pos = { 0.5f, 0.5f };
 		singlePlayer.textData.text = "Single Player";
 		btn::Init(singlePlayer);
 
-		twoPlayers = templateButton;
+		twoPlayers = button::GetTemplate();
 		twoPlayers.pos = { 0.5f, 0.4f };
 		twoPlayers.textData.text = "Two Players";
 		btn::Init(twoPlayers);
 
-		creditsButton = templateButton;
+		creditsButton = button::GetTemplate();
 		creditsButton.pos = { 0.5f, 0.3f };
 		creditsButton.textData.text = "Credits";
 		btn::Init(creditsButton);
 
-		exitButton = templateButton;
+		exitButton = button::GetTemplate();
 		exitButton.pos = { 0.5f, 0.2f };
 		exitButton.textData.text = "Exit";
 		btn::Init(exitButton);

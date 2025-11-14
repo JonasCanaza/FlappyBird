@@ -5,6 +5,7 @@
 #include "game/Game.h"
 #include "entities/Ball.h"
 #include "entities/ObstacleManager.h"
+#include "interface/Button.h"
 
 namespace gameplayState
 {
@@ -25,30 +26,22 @@ namespace gameplayState
 		ball::Init(ballTwo);
 		obstacle::Init(obstacles);
 
-		btn::Button templateButton;
-		templateButton.size = { 0.450f, 0.085f };
-		templateButton.textData.fontSize = 0.075f;
-		templateButton.useSprite = false;
-		templateButton.activeColor = SEMITRANSPARENT_B;
-		templateButton.mainColor = SEMITRANSPARENT_B;
-		templateButton.hoveredColor = SEMITRANSPARENT_B;
-
-		pauseButton = templateButton;
+		pauseButton = button::GetTemplate();
 		pauseButton.pos = { 0.5f, 0.9f };
 		pauseButton.textData.text = "Pause";
 		btn::Init(pauseButton);
 
-		retryButton = templateButton;
+		retryButton = button::GetTemplate();
 		retryButton.pos = { 0.5f, 0.7f };
 		retryButton.textData.text = "Retry";
 		btn::Init(retryButton);
 
-		returnButton = templateButton;
+		returnButton = button::GetTemplate();
 		returnButton.pos = { 0.5f, 0.6f };
 		returnButton.textData.text = "Return";
 		btn::Init(returnButton);
 
-		exitPauseButton = templateButton;
+		exitPauseButton = button::GetTemplate();
 		exitPauseButton.pos = { 0.5f, 0.5f };
 		exitPauseButton.textData.text = "Exit to Menu";
 		btn::Init(exitPauseButton);

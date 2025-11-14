@@ -3,6 +3,7 @@
 #include "BorjaLib.h"
 
 #include "game/Game.h"
+#include "interface/Button.h"
 
 namespace creditsState
 {
@@ -11,15 +12,7 @@ namespace creditsState
 
 	void Init()
 	{
-		btn::Button templateButton;
-		templateButton.size = { 0.450f, 0.085f };
-		templateButton.textData.fontSize = 0.075f;
-		templateButton.useSprite = false;
-		templateButton.activeColor = SEMITRANSPARENT_B;
-		templateButton.mainColor = SEMITRANSPARENT_B;
-		templateButton.hoveredColor = SEMITRANSPARENT_B;
-
-		backButton = templateButton;
+		backButton = button::GetTemplate();
 		backButton.pos = { 0.5f, 0.3f };
 		backButton.textData.text = "Back";
 		btn::Init(backButton);
