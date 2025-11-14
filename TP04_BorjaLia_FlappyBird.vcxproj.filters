@@ -13,6 +13,9 @@
     <Filter Include="States">
       <UniqueIdentifier>{7455e12f-91ae-452c-b098-2b18bc884313}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{0a320a3d-e051-4a27-984c-a35c152c7342}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
@@ -40,6 +43,9 @@
     <ClCompile Include="src\states\MenuState.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="src\interface\Button.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\background\BackgroundManager.h">
@@ -65,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="src\states\MenuState.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interface\Button.h">
+      <Filter>Interface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

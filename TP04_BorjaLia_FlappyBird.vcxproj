@@ -24,6 +24,7 @@
     <ClCompile Include="src\entities\Obstacle.cpp" />
     <ClCompile Include="src\entities\ObstacleManager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
+    <ClCompile Include="src\interface\Button.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\states\CreditsState.cpp" />
     <ClCompile Include="src\states\GameplayState.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="src\entities\Obstacle.h" />
     <ClInclude Include="src\entities\ObstacleManager.h" />
     <ClInclude Include="src\game\Game.h" />
+    <ClInclude Include="src\interface\Button.h" />
     <ClInclude Include="src\states\CreditsState.h" />
     <ClInclude Include="src\states\GameplayState.h" />
     <ClInclude Include="src\states\MenuState.h" />
