@@ -17,7 +17,6 @@
     <ClCompile Include="src\entities\ObstacleManager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\interface\Button.cpp" />
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\states\CreditsState.cpp" />
     <ClCompile Include="src\states\GameplayState.cpp" />
     <ClCompile Include="src\states\MenuState.cpp" />

@@ -18,7 +18,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\background\BackgroundManager.cpp">
       <Filter>Background</Filter>
     </ClCompile>
