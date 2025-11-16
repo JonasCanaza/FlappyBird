@@ -4,8 +4,6 @@
 
 namespace backgroundManager
 {
-	static float aspect;
-
 	static drw::SpriteData back;
 	static float backSpeed;
 
@@ -22,28 +20,26 @@ namespace backgroundManager
 
 	void Init()
 	{
-		aspect = rend::windowSize.x / rend::windowSize.y;
-
 		back.file = "res/sprites/backgrounds/back.png";
-		back.size = { aspect, 1.0f };
+		back.size = { 1.0f, 1.0f };
 		back.offset = { 0.0f, 0.0f };
 		backSpeed = 0.05f;
 		back.id = drw::InitSpriteData(back);
 
 		mid.file = "res/sprites/backgrounds/mid.png";
-		mid.size = { aspect, 1.0f };
+		mid.size = { 1.0f, 1.0f };
 		mid.offset = { 0.0f, 0.0f };
 		midSpeed = 0.10f;
 		mid.id = drw::InitSpriteData(mid);
 
 		front.file = "res/sprites/backgrounds/front.png";
-		front.size = { aspect, 1.0f };
+		front.size = { 1.0f, 1.0f };
 		front.offset = { 0.0f, 0.0f };
 		frontSpeed = 0.20f;
 		front.id = drw::InitSpriteData(front);
 
 		foreground.file = "res/sprites/backgrounds/foreground.png";
-		foreground.size = { aspect, 1.0f };
+		foreground.size = { 1.0f, 1.0f };
 		foreground.offset = { 0.0f, 0.0f };
 		foregroundSpeed = 0.35f;
 		foreground.id = drw::InitSpriteData(foreground);
@@ -56,24 +52,24 @@ namespace backgroundManager
 		front.offset.x -= frontSpeed * rend::deltaTime;
 		foreground.offset.x -= foregroundSpeed * rend::deltaTime;
 
-		if (back.offset.x <= -aspect)
+		if (back.offset.x <= -1.0f)
 		{
-			back.offset.x += aspect;
+			back.offset.x += 1.0f;
 		}
 
-		if (mid.offset.x <= -aspect)
+		if (mid.offset.x <= -1.0f)
 		{
-			mid.offset.x += aspect;
+			mid.offset.x += 1.0f;
 		}
 
-		if (front.offset.x <= -aspect)
+		if (front.offset.x <= -1.0f)
 		{
-			front.offset.x += aspect;
+			front.offset.x += 1.0f;
 		}
 
-		if (foreground.offset.x <= -aspect)
+		if (foreground.offset.x <= -1.0f)
 		{
-			foreground.offset.x += aspect;
+			foreground.offset.x += 1.0f;
 		}
 	}
 
@@ -88,6 +84,6 @@ namespace backgroundManager
 	static void DrawLayer(drw::SpriteData& layer)
 	{
 		drw::Sprite(drw::spriteDataList[layer.id], { 0.5f, 0.5f }, layer.size, layer.offset);
-		drw::Sprite(drw::spriteDataList[layer.id], { 0.5f, 0.5f }, layer.size, { layer.offset.x + aspect, layer.offset.y });
+		drw::Sprite(drw::spriteDataList[layer.id], { 0.5f, 0.5f }, layer.size, { layer.offset.x + 1.0f, layer.offset.y });
 	}
 }
