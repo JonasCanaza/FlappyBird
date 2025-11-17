@@ -81,6 +81,14 @@ namespace backgroundManager
 		DrawLayer(foreground);
 	}
 
+	void Close()
+	{
+		drw::DeInitSpriteData(back);
+		drw::DeInitSpriteData(mid);
+		drw::DeInitSpriteData(front);
+		drw::DeInitSpriteData(foreground);
+	}
+
 	static void DrawLayer(drw::SpriteData& layer)
 	{
 		drw::Sprite(drw::spriteDataList[layer.id], { 0.5f, 0.5f }, layer.size, layer.offset);

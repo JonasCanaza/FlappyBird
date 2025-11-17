@@ -85,6 +85,7 @@ namespace flappyBird
 			drw::End();
 		}
 
+		backgroundManager::Close();
 		audioManager::Close();
 		rend::Close();
 	}
