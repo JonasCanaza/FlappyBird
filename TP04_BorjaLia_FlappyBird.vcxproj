@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\audio\AudioManager.cpp" />
     <ClCompile Include="src\background\BackgroundManager.cpp" />
     <ClCompile Include="src\entities\Ball.cpp" />
     <ClCompile Include="src\entities\Obstacle.cpp" />
@@ -23,6 +24,7 @@
     <ClCompile Include="src\states\MenuState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\audio\AudioManager.h" />
     <ClInclude Include="src\background\BackgroundManager.h" />
     <ClInclude Include="src\entities\Ball.h" />
     <ClInclude Include="src\entities\Obstacle.h" />

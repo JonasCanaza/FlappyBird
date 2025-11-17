@@ -6,6 +6,7 @@
 #include "entities/Ball.h"
 #include "entities/ObstacleManager.h"
 #include "interface/Button.h"
+#include "audio/AudioManager.h"
 
 namespace gameplayState
 {
@@ -69,6 +70,8 @@ namespace gameplayState
 			{
 				isPaused = false;
 				flappyBird::currentState = flappyBird::GameState::MAIN_MENU;
+				audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
+				audioManager::PlayMusic(audioManager::MusicID::MUSIC_MENU);
 			}
 		}
 		else

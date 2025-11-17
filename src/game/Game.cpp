@@ -7,6 +7,7 @@
 #include "states/CreditsState.h"
 #include "background/BackgroundManager.h"
 #include "interface/Button.h"
+#include "audio/AudioManager.h"
 
 namespace flappyBird
 {
@@ -18,6 +19,7 @@ namespace flappyBird
 
 	void Play()
 	{
+		audioManager::Init();
 		Init();
 
 		while (isRunning)
@@ -31,6 +33,8 @@ namespace flappyBird
 			{
 				backgroundManager::Update();
 			}
+
+			audioManager::Update();
 
 			switch (currentState)
 			{
@@ -81,6 +85,7 @@ namespace flappyBird
 			drw::End();
 		}
 
+		audioManager::Close();
 		rend::Close();
 	}
 
@@ -94,6 +99,7 @@ namespace flappyBird
 
 		backgroundManager::Init();
 		button::Init();
+		audioManager::InitMusic();
 
 		menuState::Init();
 		gameplayState::Init();

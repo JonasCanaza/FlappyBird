@@ -16,6 +16,9 @@
     <Filter Include="Interface">
       <UniqueIdentifier>{0a320a3d-e051-4a27-984c-a35c152c7342}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{442c756f-9907-445a-bc8c-d7f07cfcd669}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\background\BackgroundManager.cpp">
@@ -46,6 +49,9 @@
       <Filter>Interface</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\audio\AudioManager.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\background\BackgroundManager.h">
@@ -74,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="src\interface\Button.h">
       <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\audio\AudioManager.h">
+      <Filter>Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

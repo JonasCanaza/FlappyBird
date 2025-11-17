@@ -5,6 +5,7 @@
 #include "game/Game.h"
 #include "states/GameplayState.h"
 #include "interface/Button.h"
+#include "audio/AudioManager.h"
 
 namespace menuState
 {
@@ -40,6 +41,8 @@ namespace menuState
 		versionTextData.fontSize = 0.05f;
 		versionTextData.text = "v0.4";
 		versionTextData.color = SEMITRANSPARENT_B;
+
+		audioManager::PlayMusic(audioManager::MusicID::MUSIC_MENU); // ESTO NO
 	}
 
 	void Update()
@@ -62,6 +65,8 @@ namespace menuState
 
 			gameplayState::Reset();
 			flappyBird::currentState = flappyBird::GameState::GAMEPLAY;
+			audioManager::StopMusic(audioManager::MusicID::MUSIC_MENU);
+			audioManager::PlayMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
 		}
 
 		if (creditsButton.signal)
