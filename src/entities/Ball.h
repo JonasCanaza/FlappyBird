@@ -22,15 +22,13 @@ namespace ball
 		vec::Vector2 crashPoint = { 0.0f,0.0f };
 
 		bColor color = MAROON_B;
-
-		ctrl::Key jumpKey = ctrl::Key::UP;
 	};
 
 	void Init(Ball& ball);
 
 	void Reset(Ball& ball);
 
-	void UpdateInput(Ball& ball);
+	void Jump(Ball& ball);
 
 	void Update(Ball& ball);
 

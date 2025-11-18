@@ -1,5 +1,3 @@
-#include "BorjaLib.h"
-
 #include "entities/Ball.h"
 
 //TEMPORALMENTE AQUI
@@ -20,17 +18,14 @@ namespace ball
 		ball.isAlive = true;
 	}
 
-	void UpdateInput(Ball& ball)
+	void Jump(Ball& ball)
 	{
 		if (!ball.isAlive || !ball.isActive)
 		{
 			return;
 		}
 
-		if (ctrl::IsKeyPressed(ball.jumpKey))
-		{
-			ball.vel.y = ball.jumpForce;
-		}
+		ball.vel.y = ball.jumpForce;
 	}
 
 	void Update(Ball& ball)

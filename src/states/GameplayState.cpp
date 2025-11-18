@@ -21,6 +21,8 @@ namespace gameplayState
 
 	static bool isPaused;
 
+	static void Input();
+
 	void Init()
 	{
 		ball::Init(ballOne);
@@ -50,6 +52,8 @@ namespace gameplayState
 
 	void Update()
 	{
+		Input();
+
 		if (isPaused)
 		{
 			btn::UpdateInput(retryButton);
@@ -61,7 +65,7 @@ namespace gameplayState
 				Reset();
 			}
 
-			if (returnButton.signal || ctrl::IsKeyPressed(ctrl::Key::ESCAPE))
+			if (returnButton.signal)
 			{
 				isPaused = false;
 			}
@@ -78,17 +82,15 @@ namespace gameplayState
 		{
 			btn::UpdateInput(pauseButton);
 
-			if (pauseButton.signal || ctrl::IsKeyPressed(ctrl::Key::ESCAPE))
+			if (pauseButton.signal)
 			{
 				isPaused = true;
 			}
 
-			ball::UpdateInput(ballOne);
 			ball::Update(ballOne);
 
 			if (flappyBird::isMultiplayer)
 			{
-				ball::UpdateInput(ballTwo);
 				ball::Update(ballTwo);
 			}
 
@@ -144,13 +146,31 @@ namespace gameplayState
 		
 		ballOne.color = RED_B;
 		ballTwo.color = BLUE_B;
-		
-		ballOne.jumpKey = ctrl::Key::UP;
-		ballTwo.jumpKey = ctrl::Key::W;
 	}
 
 	bool GetState()
 	{
 		return isPaused;
+	}
+
+	static void Input()
+	{
+		if (IsKeyPressed(KEY_ESCAPE))
+		{
+			isPaused = !isPaused;
+		}
+
+		if (!isPaused)
+		{
+			if (IsKeyPressed(KEY_UP))
+			{
+				ball::Jump(ballOne);
+			}
+
+			if (IsKeyPressed(KEY_W) && flappyBird::isMultiplayer)
+			{
+				ball::Jump(ballTwo);
+			}
+		}
 	}
 }
