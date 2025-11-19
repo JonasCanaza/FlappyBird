@@ -54,6 +54,8 @@ namespace menuState
 
 		if (singlePlayer.signal || twoPlayers.signal)
 		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
 			if (singlePlayer.signal)
 			{
 				flappyBird::isMultiplayer = false;
@@ -71,6 +73,8 @@ namespace menuState
 
 		if (creditsButton.signal)
 		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
 			flappyBird::currentState = flappyBird::GameState::CREDITS;
 		}
 

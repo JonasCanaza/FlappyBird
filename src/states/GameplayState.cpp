@@ -62,6 +62,8 @@ namespace gameplayState
 
 			if (retryButton.signal)
 			{
+				audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
 				Reset();
 				audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
 				audioManager::PlayMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
@@ -69,12 +71,16 @@ namespace gameplayState
 
 			if (returnButton.signal)
 			{
+				audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
 				isPaused = false;
 				audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
 			}
 
 			if (exitPauseButton.signal)
 			{
+				audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
 				isPaused = false;
 				flappyBird::currentState = flappyBird::GameState::MAIN_MENU;
 				audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
@@ -87,6 +93,9 @@ namespace gameplayState
 
 			if (pauseButton.signal)
 			{
+				audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+				audioManager::PlaySfx(audioManager::SfxID::SFX_PANEL);
+
 				isPaused = true;
 				audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
 			}
@@ -161,6 +170,8 @@ namespace gameplayState
 	{
 		if (IsKeyPressed(KEY_ESCAPE))
 		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_PANEL);
+
 			isPaused = !isPaused;
 			audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
 		}

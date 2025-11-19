@@ -12,6 +12,8 @@ namespace audioManager
     enum SfxID
     {
         SFX_JUMP_PLAYER,
+        SFX_BUTTON_CLICK,
+        SFX_PANEL,
         SFX_COUNT
     };
 

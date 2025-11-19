@@ -4,6 +4,7 @@
 
 #include "game/Game.h"
 #include "interface/Button.h"
+#include "audio/AudioManager.h"
 
 namespace creditsState
 {
@@ -27,6 +28,8 @@ namespace creditsState
 
 		if (backButton.signal)
 		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
 			flappyBird::currentState = flappyBird::GameState::MAIN_MENU;
 		}
 	}
