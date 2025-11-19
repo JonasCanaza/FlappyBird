@@ -9,12 +9,20 @@ namespace audioManager
         MUSIC_COUNT
     };
 
+    enum SfxID
+    {
+        SFX_JUMP_PLAYER,
+        SFX_COUNT
+    };
+
     void Init();
-    void InitMusic();
+    void InitSound();
     void Update();
     void Close();
 
     void PlayMusic(MusicID id);
     void PauseMusic(MusicID id, bool pause);
     void StopMusic(MusicID id);
+
+    void PlaySfx(SfxID id);
 }
