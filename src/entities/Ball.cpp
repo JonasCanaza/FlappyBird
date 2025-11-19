@@ -1,5 +1,7 @@
 #include "entities/Ball.h"
 
+#include "audio/AudioManager.h"
+
 //TEMPORALMENTE AQUI
 static const float gravity = 1.8f;
 
@@ -47,6 +49,8 @@ namespace ball
 
 		if (ball.pos.y - ball.size.y < 0.0f)
 		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_HIT_PLAYER);
+
 			ball.pos.y = ball.size.y;
 			Die(ball);
 		}

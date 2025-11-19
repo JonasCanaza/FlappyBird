@@ -217,6 +217,7 @@ namespace audioManager
     static void InitSfx()
     {
         sfxTracks[SFX_JUMP_PLAYER].sourceFile = "res/audio/sfx/player/Jump.wav";
+        sfxTracks[SFX_HIT_PLAYER].sourceFile = "res/audio/sfx/player/Hit.wav";
         sfxTracks[SFX_BUTTON_CLICK].sourceFile = "res/audio/sfx/ui/Click.wav";
         sfxTracks[SFX_PANEL].sourceFile = "res/audio/sfx/ui/Panel.wav";
     }

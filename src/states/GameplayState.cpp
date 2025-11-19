@@ -113,11 +113,15 @@ namespace gameplayState
 			{
 				if (obstacle::manager::Collide(obstacles[o].obstacles, ballOne))
 				{
+					audioManager::PlaySfx(audioManager::SfxID::SFX_HIT_PLAYER);
+
 					ball::Die(ballOne);
 				}
 
 				if (flappyBird::isMultiplayer && obstacle::manager::Collide(obstacles[o].obstacles, ballTwo))
 				{
+					audioManager::PlaySfx(audioManager::SfxID::SFX_HIT_PLAYER);
+
 					ball::Die(ballTwo);
 				}
 			}
