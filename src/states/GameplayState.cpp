@@ -63,11 +63,14 @@ namespace gameplayState
 			if (retryButton.signal)
 			{
 				Reset();
+				audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
+				audioManager::PlayMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
 			}
 
 			if (returnButton.signal)
 			{
 				isPaused = false;
+				audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
 			}
 
 			if (exitPauseButton.signal)
@@ -85,6 +88,7 @@ namespace gameplayState
 			if (pauseButton.signal)
 			{
 				isPaused = true;
+				audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
 			}
 
 			ball::Update(ballOne);
@@ -158,6 +162,7 @@ namespace gameplayState
 		if (IsKeyPressed(KEY_ESCAPE))
 		{
 			isPaused = !isPaused;
+			audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
 		}
 
 		if (!isPaused)

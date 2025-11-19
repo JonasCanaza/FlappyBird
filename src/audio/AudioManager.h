@@ -15,5 +15,6 @@ namespace audioManager
     void Close();
 
     void PlayMusic(MusicID id);
+    void PauseMusic(MusicID id, bool pause);
     void StopMusic(MusicID id);
 }
