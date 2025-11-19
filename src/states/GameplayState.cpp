@@ -167,14 +167,16 @@ namespace gameplayState
 
 		if (!isPaused)
 		{
-			if (IsKeyPressed(KEY_UP))
+			if (IsKeyPressed(KEY_UP) && ballOne.isAlive)
 			{
 				ball::Jump(ballOne);
+				audioManager::PlaySfx(audioManager::SfxID::SFX_JUMP_PLAYER);
 			}
 
-			if (IsKeyPressed(KEY_W) && flappyBird::isMultiplayer)
+			if (IsKeyPressed(KEY_W) && flappyBird::isMultiplayer && ballTwo.isAlive)
 			{
 				ball::Jump(ballTwo);
+				audioManager::PlaySfx(audioManager::SfxID::SFX_JUMP_PLAYER);
 			}
 		}
 	}

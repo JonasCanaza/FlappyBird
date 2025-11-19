@@ -100,7 +100,7 @@ namespace flappyBird
 
 		backgroundManager::Init();
 		button::Init();
-		audioManager::InitMusic();
+		audioManager::InitSound();
 
 		menuState::Init();
 		gameplayState::Init();
