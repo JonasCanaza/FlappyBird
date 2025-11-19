@@ -26,22 +26,16 @@ namespace audioManager
 
     void Update()
     {
-        //std::cout << snd::IsPlaying(musicTracks[MUSIC_MENU].id) << std::endl;
-        //std::cout << snd::IsPlaying(musicTracks[MUSIC_GAMEPLAY].id) << std::endl;
-
-        //std::cout << musicTracks[MUSIC_MENU].id << std::endl;
-        //std::cout << musicTracks[MUSIC_GAMEPLAY].id << std::endl;
-
-        //if (!snd::IsPlaying(playID))
-        //{
-        //    if (playID != 0)
-        //    {
-        //        snd::Play(playID);
-        //    }
-        //}
+        if (!IsSoundPlaying(snd::audioDataList[playMusicID].sound))
+        {
+            if (playMusicID != 0)
+            {
+                snd::Play(playMusicID);
+            }
+        }
     }
-
-    void Close() // IMPORTANT: ONLY DO "Close();" IN "game.cpp"
+    
+    void Close() // IMPORTANT: ONLY DO "Close();" IN "Game.cpp"
     {
         for (int i = 0; i < MUSIC_COUNT; i++)
         {
