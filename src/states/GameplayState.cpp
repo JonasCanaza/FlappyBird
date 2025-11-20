@@ -19,10 +19,17 @@ namespace gameplayState
 	static btn::Button returnButton;
 	static btn::Button exitPauseButton;
 
+	// SCORES TEXT
+
+	static const vec::Vector2 PLAYER_ONE_TEXT_POS = { 0.8f, 0.9f };
+	static const vec::Vector2 PLAYER_TWO_TEXT_POS = { 0.2f, 0.9f };
+	static const float SCORE_TEXT_SIZE = 0.075f;
+
 	static bool isPaused;
 
 	static void Input();
 	static void UpdateScores(obstacle::FullObstacle obstacleArray[], bool isMultiplayer);
+	static void DrawScores(bool isMultiplayer);
 
 	void Init()
 	{
@@ -142,6 +149,8 @@ namespace gameplayState
 
 		obstacle::Draw(obstacles);
 
+		DrawScores(flappyBird::isMultiplayer);
+
 		btn::Draw(pauseButton);
 
 		if (isPaused)
@@ -222,5 +231,23 @@ namespace gameplayState
 			}
 		}
 
+	}
+	
+	static void DrawScores(bool isMultiplayer)
+	{
+		drw::Text(("P1   Score: " + std::to_string(ballOne.score)).c_str(),
+			PLAYER_ONE_TEXT_POS,
+			SCORE_TEXT_SIZE,
+			{ 0.0f, 0.0f },
+			RED_B);
+
+		if (isMultiplayer)
+		{
+			drw::Text(("P2   Score: " + std::to_string(ballTwo.score)).c_str(),
+				PLAYER_TWO_TEXT_POS,
+				SCORE_TEXT_SIZE,
+				{ 0.0f, 0.0f },
+				GREEN_B);
+		}
 	}
 }
