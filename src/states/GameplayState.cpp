@@ -207,12 +207,16 @@ namespace gameplayState
 
 			if (!obstacleArray[i].scoredByPlayerOne && ballOne.position.x > obstacleRight && ballOne.isAlive)
 			{
+				audioManager::PlaySfx(audioManager::SfxID::SFX_SCORE_PLAYER);
+
 				obstacleArray[i].scoredByPlayerOne = true;
 				ballOne.score++;
 			}
 
 			if (isMultiplayer && !obstacleArray[i].scoredByPlayerTwo && ballTwo.position.x > obstacleRight && ballTwo.isAlive)
 			{
+				audioManager::PlaySfx(audioManager::SfxID::SFX_SCORE_PLAYER);
+
 				obstacleArray[i].scoredByPlayerTwo = true;
 				ballTwo.score++;
 			}
