@@ -7,32 +7,21 @@ namespace ball
 	struct Ball
 	{
 		bool isActive = false;
-
 		bool isAlive = false;
 
-		vec::Vector2 pos = { 0.2f,0.5f };
+		vec::Vector2 position = {};
+		vec::Vector2 velocity = {};
+		vec::Vector2 size = {};
+		vec::Vector2 crashPoint = {};
 
-		vec::Vector2 vel = { 0.0f,0.0f };
-
-		float jumpForce = 0.85f;
-		float moveForce = 0.5f;
-
-		vec::Vector2 size = { 0.025f,0.025f };
-
-		vec::Vector2 crashPoint = { 0.0f,0.0f };
-
-		bColor color = MAROON_B;
+		bColor color;
 	};
 
 	void Init(Ball& ball);
-
-	void Reset(Ball& ball);
-
-	void Jump(Ball& ball);
-
 	void Update(Ball& ball);
-
 	void Draw(Ball& ball);
 
+	void Reset(Ball& ball);
+	void Jump(Ball& ball);
 	void Die(Ball& ball);
 }

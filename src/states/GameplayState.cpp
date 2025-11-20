@@ -158,8 +158,8 @@ namespace gameplayState
 		ball::Reset(ballTwo);
 		obstacle::Reset(obstacles);
 		
-		ballOne.pos = { 0.25f, 0.5f };
-		ballTwo.pos = { 0.15f, 0.5f };
+		ballOne.position = { 0.25f, 0.5f };
+		ballTwo.position = { 0.15f, 0.5f };
 		
 		ballOne.color = RED_B;
 		ballTwo.color = BLUE_B;

@@ -14,7 +14,7 @@ namespace obstacle
             vec::Vector2 rectPos = { fullObstacle.position.x, fullObstacle.position.y + part.offsetY };
             vec::Vector2 rectSize = { fullObstacle.width, part.height };
 
-            return coll::RecOnRec(rectPos, rectSize, ball.pos, ball.size, ball.crashPoint);
+            return coll::RecOnRec(rectPos, rectSize, ball.position, ball.size, ball.crashPoint);
         }
 
         bool Collide(FullObstacle fullObstacle, ball::Ball ball)
