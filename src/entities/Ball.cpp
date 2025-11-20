@@ -2,11 +2,10 @@
 
 #include "audio/AudioManager.h"
 
-//TEMPORALMENTE AQUI
-static const float gravity = 1.8f;
-
 namespace ball
 {
+	static const float gravity = 2.25f;
+
 	void Init(Ball& ball)
 	{
 		ball = Ball();
