@@ -4,6 +4,12 @@
 
 namespace ball
 {
+	enum Player
+	{
+		One,
+		Two
+	};
+
 	struct Ball
 	{
 		bool isActive = false;
@@ -19,9 +25,11 @@ namespace ball
 		bColor color;
 	};
 
+	void InitTextures();
 	void Init(Ball& ball);
 	void Update(Ball& ball);
-	void Draw(Ball& ball);
+	void Draw(Ball& ball, Player number);
+	void CloseTextures();
 
 	void Reset(Ball& ball);
 	void Jump(Ball& ball);

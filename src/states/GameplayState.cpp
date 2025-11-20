@@ -94,11 +94,11 @@ namespace gameplayState
 
 	void Draw()
 	{
-		ball::Draw(ballOne);
+		ball::Draw(ballOne, ball::Player::One);
 
 		if (flappyBird::isMultiplayer)
 		{
-			ball::Draw(ballTwo);
+			ball::Draw(ballTwo, ball::Player::Two);
 		}
 
 		obstacle::Draw(obstacles);

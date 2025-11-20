@@ -4,11 +4,25 @@
 
 namespace ball
 {
+	static drw::SpriteData playerOneSprite;
+	static drw::SpriteData playerTwoSprite;
+
 	static const vec::Vector2 DEFAULT_POSITIONS = { 0.2f, 0.5f };
 	static const vec::Vector2 DEFAULT_SIZE = { 0.025f, 0.025f };
 
 	static const float GRAVITY = 2.25f;
 	static const float JUMP_FORCE = 0.85f;
+
+	void InitTextures()
+	{
+		playerOneSprite.size = { DEFAULT_SIZE.x * 2.0f, DEFAULT_SIZE.y * 2.0f };
+		playerOneSprite.file = "res/sprites/player/PlayerRed.png";
+		playerOneSprite.id = drw::InitSpriteData(playerOneSprite);
+
+		playerTwoSprite.size = { DEFAULT_SIZE.x * 2.0f, DEFAULT_SIZE.y * 2.0f };
+		playerTwoSprite.file = "res/sprites/player/PlayerGreen.png";
+		playerTwoSprite.id = drw::InitSpriteData(playerTwoSprite);
+	}
 
 	void Init(Ball& ball)
 	{
@@ -41,14 +55,37 @@ namespace ball
 		}
 	}
 
-	void Draw(Ball& ball)
+	void Draw(Ball& ball, Player number)
 	{
 		if (!ball.isActive)
 		{
 			return;
 		}
 
-		drw::Circle(ball.position, ball.size, ball.color);
+		switch (number)
+		{
+		case ball::One:
+
+			drw::Sprite(drw::spriteDataList[playerOneSprite.id], ball.position, playerOneSprite.size);
+
+			break;
+		case ball::Two:
+
+			drw::Sprite(drw::spriteDataList[playerTwoSprite.id], ball.position, playerTwoSprite.size);
+
+			break;
+		default:
+
+			// THERE ARE NO MORE PLAYERS
+
+			break;
+		}
+	}
+
+	void CloseTextures()
+	{
+		drw::DeInitSpriteData(playerOneSprite);
+		drw::DeInitSpriteData(playerTwoSprite);
 	}
 
 	void Reset(Ball& ball)
