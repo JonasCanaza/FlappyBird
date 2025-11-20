@@ -8,7 +8,7 @@ namespace ball
 	static drw::SpriteData playerTwoSprite;
 
 	static const vec::Vector2 DEFAULT_POSITIONS = { 0.2f, 0.5f };
-	static const vec::Vector2 DEFAULT_SIZE = { 0.025f, 0.025f };
+	static const vec::Vector2 DEFAULT_SIZE = { 0.035f, 0.04f };
 
 	static const float GRAVITY = 2.25f;
 	static const float JUMP_FORCE = 0.85f;
