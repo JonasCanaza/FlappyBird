@@ -12,7 +12,7 @@ namespace gameplayState
 {
 	static ball::Ball ballOne;
 	static ball::Ball ballTwo;
-	static obstacle::FullObstacle obstacles[obstacle::maxObstacles];
+	static obstacle::FullObstacle obstacles[obstacle::maxFullObstacles];
 
 	static btn::Button pauseButton;
 	static btn::Button retryButton;
@@ -109,16 +109,16 @@ namespace gameplayState
 
 			obstacle::Update(obstacles);
 
-			for (int o = 0; o < obstacle::maxObstacles; o++)
+			for (int i = 0; i < obstacle::maxFullObstacles; i++)
 			{
-				if (obstacle::manager::Collide(obstacles[o].obstacles, ballOne))
+				if (obstacle::manager::Collide(obstacles[i], ballOne))
 				{
 					audioManager::PlaySfx(audioManager::SfxID::SFX_HIT_PLAYER);
 
 					ball::Die(ballOne);
 				}
 
-				if (flappyBird::isMultiplayer && obstacle::manager::Collide(obstacles[o].obstacles, ballTwo))
+				if (flappyBird::isMultiplayer && obstacle::manager::Collide(obstacles[i], ballTwo))
 				{
 					audioManager::PlaySfx(audioManager::SfxID::SFX_HIT_PLAYER);
 

@@ -2,167 +2,114 @@
 
 namespace obstacle
 {
-	void Init(Obstacle& obstacle)
-	{
-		obstacle = Obstacle();
-		Reset(obstacle);
-	}
+    static const vec::Vector2 DEFAULT_POSITIONS = { 1.1f, 0.5f };
+    static const vec::Vector2 DEFAULT_SPEED = { -0.5f, 0.0f };
+    static const float DEFAULT_WIDTH = 0.15f;
 
-	void Init(Obstacle obstacles[])
-	{
-		for (int o = 0; o < obstaclesAmount; o++)
-		{
-			Init(obstacles[o]);
-		}
-	}
+    static const float DEFAULT_GAP_SIZE = 0.35f;
+    static const float MIN_GAP_CENTER = 0.3f;
+    static const float MAX_GAP_CENTER = 0.7f;
 
-	void Init(FullObstacle& fullObstacle)
-	{
-		fullObstacle = FullObstacle();
-		Reset(fullObstacle);
-	}
+    enum ObstaclePartIndex
+    {
+        TOP_PART,
+        BOTTOM_PART
+    };
 
-	void Init(FullObstacle fullObstacles[])
-	{
-		for (int o = 0; o < maxObstacles; o++)
-		{
-			Init(fullObstacles[o]);
-		}
-	}
+    void Init(FullObstacle& fullObstacle)
+    {
+        fullObstacle = FullObstacle();
+        Reset(fullObstacle);
+    }
 
-	void Reset(Obstacle& obstacle)
-	{
-		obstacle = Obstacle();
-		obstacle.pos.x = 1.0f + (obstacle.size.x / 2.0f);
-		obstacle.pos.y = mth::GetRandomf((obstacle.size.y / 2.0f), 1.0f - (obstacle.size.y / 2.0f));
-		obstacle.isActive = true;
-	}
+    void Init(FullObstacle fullObstacles[])
+    {
+        for (int i = 0; i < maxFullObstacles; i++)
+        {
+            Init(fullObstacles[i]);
+        }
+    }
 
-	void Reset(Obstacle obstacles[])
-	{
-		for (int o = 0; o < obstaclesAmount; o++)
-		{
-			Reset(obstacles[o]);
-		}
-	}
+    void Update(FullObstacle& fullObstacle)
+    {
+        if (!fullObstacle.isActive)
+        {
+            return;
+        }
 
-	void Reset(FullObstacle& fullObstacle)
-	{
-		fullObstacle = FullObstacle();
-		fullObstacle.pos.x = 1.0f + (fullObstacle.size.x / 2.0f);
-		fullObstacle.pos.y = 0.5f;
-		fullObstacle.isActive = true;
+        fullObstacle.position += fullObstacle.velocity * rend::deltaTime;
 
-		for (int o = 0; o < obstaclesAmount; o++)
-		{
-			Reset(fullObstacle.obstacles[o]);
-		}
+        if (fullObstacle.position.x + fullObstacle.width / 2.0f < 0.0f)
+        {
+            Reset(fullObstacle);
+        }
+    }
 
-		//temp solution
+    void Update(FullObstacle fullObstacles[])
+    {
+        for (int i = 0; i < maxFullObstacles; i++)
+        {
+            Update(fullObstacles[i]);
+        }
+    }
 
-		vec::Vector2 playerSpacePos = { 0.0f, 0.0f };
-		vec::Vector2 playerSpaceSize = { 0.0f, 0.0f };
+    void Draw(FullObstacle& fullObstacle)
+    {
+        if (!fullObstacle.isActive)
+        {
+            return;
+        }
 
-		playerSpacePos.y = mth::GetRandomf(0.3f,0.7f);
-		playerSpaceSize.y = 0.35f;
+        for (int i = 0; i < obstacleParts; i++)
+        {
+            ObstaclePart& part = fullObstacle.parts[i];
 
-		fullObstacle.obstacles[0].pos.y = (playerSpacePos.y - playerSpaceSize.y / 2.0f) / 2.0f;
-		fullObstacle.obstacles[0].size.y = 2.0f * fullObstacle.obstacles[0].pos.y;
-		fullObstacle.obstacles[0].color = RED_B;
+            vec::Vector2 partPos = { fullObstacle.position.x, fullObstacle.position.y + part.offsetY };
+            vec::Vector2 partSize = { fullObstacle.width, part.height };
 
-		fullObstacle.obstacles[1].pos.y = (playerSpacePos.y + playerSpaceSize.y / 2.0f) + (1.0f - (playerSpacePos.y + playerSpaceSize.y / 2.0f))/2.0f;
-		fullObstacle.obstacles[1].size.y = 2.0f * (1.0f - fullObstacle.obstacles[1].pos.y);
-		fullObstacle.obstacles[1].color = RED_B;
-	}
+            drw::Rectangle(partPos, partSize, part.color);
+        }
+    }
 
-	void Reset(FullObstacle fullObstacles[])
-	{
-		for (int o = 0; o < maxObstacles; o++)
-		{
-			Reset(fullObstacles[o]);
-		}
-	}
+    void Draw(FullObstacle fullObstacles[])
+    {
+        for (int i = 0; i < maxFullObstacles; i++)
+        {
+            Draw(fullObstacles[i]);
+        }
+    }
 
-	void Update(Obstacle& obstacle)
-	{
-		if (!obstacle.isActive)
-		{
-			return;
-		}
+    void Reset(FullObstacle& fullObstacle)
+    {
+        fullObstacle = FullObstacle();
 
-		obstacle.pos += obstacle.vel * rend::deltaTime;
+        fullObstacle.position = DEFAULT_POSITIONS;
+        fullObstacle.velocity = DEFAULT_SPEED;
+        fullObstacle.width = DEFAULT_WIDTH;
+        fullObstacle.gapSize = DEFAULT_GAP_SIZE;
 
-		if (obstacle.pos.x + (obstacle.size.x / 2.0f) < 0.0f)
-		{
-			Reset(obstacle);
-		}
-	}
+        float gapCenter = mth::GetRandomf(MIN_GAP_CENTER, MAX_GAP_CENTER);
+        float halfGap = DEFAULT_GAP_SIZE / 2.0f;
 
-	void Update(Obstacle obstacles[])
-	{
-		for (int o = 0; o < obstaclesAmount; o++)
-		{
-			Update(obstacles[o]);
-		}
-	}
+        float topEnd = gapCenter - halfGap;
+        float bottomStart = gapCenter + halfGap;
 
-	void Update(FullObstacle& fullObstacle)
-	{
-		if (!fullObstacle.isActive)
-		{
-			return;
-		}
+        fullObstacle.parts[TOP_PART].height = topEnd;
+        fullObstacle.parts[TOP_PART].offsetY = -(1.0f - topEnd) / 2.0f;
+        fullObstacle.parts[TOP_PART].color = RED_B;
 
-		fullObstacle.pos += fullObstacle.vel * rend::deltaTime;
+        fullObstacle.parts[BOTTOM_PART].height = 1.0f - bottomStart;
+        fullObstacle.parts[BOTTOM_PART].offsetY = (1.0f - fullObstacle.parts[BOTTOM_PART].height) / 2.0f;
+        fullObstacle.parts[BOTTOM_PART].color = RED_B;
 
-		for (int o = 0; o < obstaclesAmount; o++)
-		{
-			fullObstacle.obstacles[o].pos += fullObstacle.vel * rend::deltaTime;
-			Update(fullObstacle.obstacles[o]);
-		}
+        fullObstacle.isActive = true;
+    }
 
-		if (fullObstacle.pos.x + (fullObstacle.size.x / 2.0f) < 0.0f)
-		{
-			Reset(fullObstacle);
-		}
-	}
-
-	void Update(FullObstacle fullObstacles[])
-	{
-		for (int o = 0; o < maxObstacles; o++)
-		{
-			Update(fullObstacles[o]);
-		}
-	}
-
-	void Draw(Obstacle& obstacle)
-	{
-		if (!obstacle.isActive)
-		{
-			return;
-		}
-
-		drw::Rectangle(obstacle.pos, obstacle.size, obstacle.color);
-	}
-
-	void Draw(Obstacle obstacles[])
-	{
-		for (int o = 0; o < obstaclesAmount; o++)
-		{
-			Draw(obstacles[o]);
-		}
-	}
-
-	void Draw(FullObstacle fullObstacle)
-	{
-		Draw(fullObstacle.obstacles);
-	}
-
-	void Draw(FullObstacle fullObstacles[])
-	{
-		for (int o = 0; o < maxObstacles; o++)
-		{
-			Draw(fullObstacles[o]);
-		}
-	}
+    void Reset(FullObstacle fullObstacles[])
+    {
+        for (int i = 0; i < maxFullObstacles; i++)
+        {
+            Reset(fullObstacles[i]);
+        }
+    }
 }

@@ -5,9 +5,9 @@
 
 namespace obstacle
 {
-	namespace manager
-	{
-		bool Collide(Obstacle& obstacle, ball::Ball& ball);
-		bool Collide(Obstacle obstacles[], ball::Ball& ball);
-	}
+    namespace manager
+    {
+        bool Collide(FullObstacle fullObstacle, ObstaclePart part, ball::Ball ball);
+        bool Collide(FullObstacle fullObstacle, ball::Ball ball);
+    }
 }

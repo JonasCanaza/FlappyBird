@@ -2,39 +2,37 @@
 
 namespace obstacle
 {
-	namespace manager
-	{
-		bool Collide(Obstacle& obstacle, ball::Ball& ball)
-		{
-			if (!obstacle.isActive)
-			{
-				return false;
-			}
+    namespace manager
+    {
+        bool Collide(FullObstacle fullObstacle, ObstaclePart part, ball::Ball ball)
+        {
+            if (!fullObstacle.isActive)
+            {
+                return false;
+            }
 
-			if (coll::RecOnRec(obstacle.pos, obstacle.size, ball.pos, ball.size, ball.crashPoint))
-			{
-				return true;
-			}
+            vec::Vector2 rectPos = { fullObstacle.position.x, fullObstacle.position.y + part.offsetY };
+            vec::Vector2 rectSize = { fullObstacle.width, part.height };
 
-			return false;
-		}
+            return coll::RecOnRec(rectPos, rectSize, ball.pos, ball.size, ball.crashPoint);
+        }
 
-		bool Collide(Obstacle obstacles[], ball::Ball& ball)
-		{
-			if (!ball.isAlive)
-			{
-				return false;
-			}
+        bool Collide(FullObstacle fullObstacle, ball::Ball ball)
+        {
+            if (!ball.isAlive)
+            {
+                return false;
+            }
 
-			for (int o = 0; o < obstacle::obstaclesAmount; o++)
-			{
-				if (Collide(obstacles[o], ball))
-				{
-					return true;
-				}
-			}
+            for (int i = 0; i < obstacleParts; i++)
+            {
+                if (Collide(fullObstacle, fullObstacle.parts[i], ball))
+                {
+                    return true;
+                }
+            }
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 }
