@@ -14,10 +14,24 @@ namespace gameplayState
 	static ball::Ball ballTwo;
 	static obstacle::FullObstacle obstacles[obstacle::maxFullObstacles];
 
+	static const vec::Vector2 P1_START_POS = { 0.25f, 0.5f };
+	static const vec::Vector2 P2_START_POS = { 0.15f, 0.5f };
+
+	// BUTTONS
+
 	static btn::Button pauseButton;
 	static btn::Button retryButton;
 	static btn::Button returnButton;
-	static btn::Button exitPauseButton;
+	static btn::Button exitButton;
+
+	static const vec::Vector2 PAUSE_BUTTON_POS = { 0.5f, 0.9f };
+	static const vec::Vector2 RETRY_BUTTON_POS = { 0.5f, 0.7f };
+	static const vec::Vector2 RETURN_BUTTON_POS = { 0.5f, 0.6f };
+	static const vec::Vector2 EXIT_BUTTON_POS = { 0.5f, 0.5f };
+
+	// TEMPORARY BACKGROUND
+
+	static const vec::Vector4 TRANSPARENT_BACKGROUND = { 0.0f, 0.0f, 1.0f, 1.0f };
 
 	// SCORES TEXT
 
@@ -28,8 +42,19 @@ namespace gameplayState
 	static bool isPaused;
 
 	static void Input();
-	static void UpdateScores(obstacle::FullObstacle obstacleArray[], bool isMultiplayer);
-	static void DrawScores(bool isMultiplayer);
+
+	static void InitPauseButton();
+	static void UpdatePauseButton();
+	static void DrawPauseButton();
+
+	static void InitButtons();
+	static void UpdateButtons();
+	static void DrawButtons();
+
+	static void UpdateScores();
+	static void DrawScores();
+
+	static void CheckCollisions();
 
 	void Init()
 	{
@@ -37,25 +62,8 @@ namespace gameplayState
 		ball::Init(ballTwo);
 		obstacle::Init(obstacles);
 
-		pauseButton = button::GetTemplate();
-		pauseButton.pos = { 0.5f, 0.9f };
-		pauseButton.textData.text = "Pause";
-		btn::Init(pauseButton);
-
-		retryButton = button::GetTemplate();
-		retryButton.pos = { 0.5f, 0.7f };
-		retryButton.textData.text = "Retry";
-		btn::Init(retryButton);
-
-		returnButton = button::GetTemplate();
-		returnButton.pos = { 0.5f, 0.6f };
-		returnButton.textData.text = "Return";
-		btn::Init(returnButton);
-
-		exitPauseButton = button::GetTemplate();
-		exitPauseButton.pos = { 0.5f, 0.5f };
-		exitPauseButton.textData.text = "Exit to Menu";
-		btn::Init(exitPauseButton);
+		InitPauseButton();
+		InitButtons();
 	}
 
 	void Update()
@@ -64,49 +72,11 @@ namespace gameplayState
 
 		if (isPaused)
 		{
-			btn::UpdateInput(retryButton);
-			btn::UpdateInput(returnButton);
-			btn::UpdateInput(exitPauseButton);
-
-			if (retryButton.signal)
-			{
-				audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
-
-				Reset();
-				audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
-				audioManager::PlayMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
-			}
-
-			if (returnButton.signal)
-			{
-				audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
-
-				isPaused = false;
-				audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
-			}
-
-			if (exitPauseButton.signal)
-			{
-				audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
-
-				isPaused = false;
-				flappyBird::currentState = flappyBird::GameState::MAIN_MENU;
-				audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
-				audioManager::PlayMusic(audioManager::MusicID::MUSIC_MENU);
-			}
+			UpdateButtons();
 		}
 		else
 		{
-			btn::UpdateInput(pauseButton);
-
-			if (pauseButton.signal)
-			{
-				audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
-				audioManager::PlaySfx(audioManager::SfxID::SFX_PANEL);
-
-				isPaused = true;
-				audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
-			}
+			UpdatePauseButton();
 
 			ball::Update(ballOne);
 
@@ -117,24 +87,8 @@ namespace gameplayState
 
 			obstacle::Update(obstacles);
 
-			UpdateScores(obstacles, flappyBird::isMultiplayer);
-
-			for (int i = 0; i < obstacle::maxFullObstacles; i++)
-			{
-				if (obstacle::manager::Collide(obstacles[i], ballOne))
-				{
-					audioManager::PlaySfx(audioManager::SfxID::SFX_HIT_PLAYER);
-
-					ball::Die(ballOne);
-				}
-
-				if (flappyBird::isMultiplayer && obstacle::manager::Collide(obstacles[i], ballTwo))
-				{
-					audioManager::PlaySfx(audioManager::SfxID::SFX_HIT_PLAYER);
-
-					ball::Die(ballTwo);
-				}
-			}
+			UpdateScores();
+			CheckCollisions();
 		}
 	}
 
@@ -149,16 +103,14 @@ namespace gameplayState
 
 		obstacle::Draw(obstacles);
 
-		DrawScores(flappyBird::isMultiplayer);
+		DrawScores();
 
-		btn::Draw(pauseButton);
+		DrawPauseButton();
 
 		if (isPaused)
 		{
-			drw::Rectangle(vec::Vector4(0.0f, 0.0f, 1.0f, 1.0f), SEMITRANSPARENT_B);
-			btn::Draw(retryButton);
-			btn::Draw(returnButton);
-			btn::Draw(exitPauseButton);
+			drw::Rectangle(TRANSPARENT_BACKGROUND, SEMITRANSPARENT_B);
+			DrawButtons();
 		}
 	}
 
@@ -170,8 +122,8 @@ namespace gameplayState
 		ball::Reset(ballTwo);
 		obstacle::Reset(obstacles);
 		
-		ballOne.position = { 0.25f, 0.5f };
-		ballTwo.position = { 0.15f, 0.5f };
+		ballOne.position = P1_START_POS;
+		ballTwo.position = P2_START_POS;
 		
 		ballOne.color = RED_B;
 		ballTwo.color = BLUE_B;
@@ -208,32 +160,118 @@ namespace gameplayState
 		}
 	}
 
-	static void UpdateScores(obstacle::FullObstacle obstacleArray[], bool isMultiplayer)
+	static void InitPauseButton()
+	{
+		pauseButton = button::GetTemplate();
+		pauseButton.pos = PAUSE_BUTTON_POS;
+		pauseButton.textData.text = "Pause";
+		btn::Init(pauseButton);
+	}
+
+	static void UpdatePauseButton()
+	{
+		btn::UpdateInput(pauseButton);
+
+		if (pauseButton.signal)
+		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+			audioManager::PlaySfx(audioManager::SfxID::SFX_PANEL);
+
+			isPaused = true;
+			audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
+		}
+	}
+
+	static void DrawPauseButton()
+	{
+		btn::Draw(pauseButton);
+	}
+
+	static void InitButtons()
+	{
+		retryButton = button::GetTemplate();
+		retryButton.pos = RETRY_BUTTON_POS;
+		retryButton.textData.text = "Retry";
+		btn::Init(retryButton);
+
+		returnButton = button::GetTemplate();
+		returnButton.pos = RETURN_BUTTON_POS;
+		returnButton.textData.text = "Return";
+		btn::Init(returnButton);
+
+		exitButton = button::GetTemplate();
+		exitButton.pos = EXIT_BUTTON_POS;
+		exitButton.textData.text = "Exit to Menu";
+		btn::Init(exitButton);
+	}
+
+	static void UpdateButtons()
+	{
+		btn::UpdateInput(retryButton);
+		btn::UpdateInput(returnButton);
+		btn::UpdateInput(exitButton);
+
+		if (retryButton.signal)
+		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
+			Reset();
+			audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
+			audioManager::PlayMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
+		}
+
+		if (returnButton.signal)
+		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
+			isPaused = false;
+			audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
+		}
+
+		if (exitButton.signal)
+		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
+			isPaused = false;
+			flappyBird::currentState = flappyBird::GameState::MAIN_MENU;
+			audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
+			audioManager::PlayMusic(audioManager::MusicID::MUSIC_MENU);
+		}
+	}
+
+	static void DrawButtons()
+	{
+		btn::Draw(retryButton);
+		btn::Draw(returnButton);
+		btn::Draw(exitButton);
+	}
+
+	static void UpdateScores()
 	{
 		for (int i = 0; i < obstacle::maxFullObstacles; i++)
 		{
-			float obstacleRight = obstacleArray[i].position.x + obstacleArray[i].width / 2.0f;
+			float obstacleRight = obstacles[i].position.x + obstacles[i].width / 2.0f;
 
-			if (!obstacleArray[i].scoredByPlayerOne && ballOne.position.x > obstacleRight && ballOne.isAlive)
+			if (!obstacles[i].scoredByPlayerOne && ballOne.position.x > obstacleRight && ballOne.isAlive)
 			{
 				audioManager::PlaySfx(audioManager::SfxID::SFX_SCORE_PLAYER);
 
-				obstacleArray[i].scoredByPlayerOne = true;
+				obstacles[i].scoredByPlayerOne = true;
 				ballOne.score++;
 			}
 
-			if (isMultiplayer && !obstacleArray[i].scoredByPlayerTwo && ballTwo.position.x > obstacleRight && ballTwo.isAlive)
+			if (flappyBird::isMultiplayer && !obstacles[i].scoredByPlayerTwo && ballTwo.position.x > obstacleRight && ballTwo.isAlive)
 			{
 				audioManager::PlaySfx(audioManager::SfxID::SFX_SCORE_PLAYER);
 
-				obstacleArray[i].scoredByPlayerTwo = true;
+				obstacles[i].scoredByPlayerTwo = true;
 				ballTwo.score++;
 			}
 		}
 
 	}
 	
-	static void DrawScores(bool isMultiplayer)
+	static void DrawScores()
 	{
 		drw::Text(("P1   Score: " + std::to_string(ballOne.score)).c_str(),
 			PLAYER_ONE_TEXT_POS,
@@ -241,13 +279,33 @@ namespace gameplayState
 			{ 0.0f, 0.0f },
 			RED_B);
 
-		if (isMultiplayer)
+		if (flappyBird::isMultiplayer)
 		{
 			drw::Text(("P2   Score: " + std::to_string(ballTwo.score)).c_str(),
 				PLAYER_TWO_TEXT_POS,
 				SCORE_TEXT_SIZE,
 				{ 0.0f, 0.0f },
 				GREEN_B);
+		}
+	}
+
+	static void CheckCollisions()
+	{
+		for (int i = 0; i < obstacle::maxFullObstacles; i++)
+		{
+			if (obstacle::manager::Collide(obstacles[i], ballOne))
+			{
+				audioManager::PlaySfx(audioManager::SfxID::SFX_HIT_PLAYER);
+
+				ball::Die(ballOne);
+			}
+
+			if (flappyBird::isMultiplayer && obstacle::manager::Collide(obstacles[i], ballTwo))
+			{
+				audioManager::PlaySfx(audioManager::SfxID::SFX_HIT_PLAYER);
+
+				ball::Die(ballTwo);
+			}
 		}
 	}
 }
