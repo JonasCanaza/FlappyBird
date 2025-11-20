@@ -103,6 +103,9 @@ namespace obstacle
         fullObstacle.parts[BOTTOM_PART].color = RED_B;
 
         fullObstacle.isActive = true;
+
+        fullObstacle.scoredByPlayerOne = false;
+        fullObstacle.scoredByPlayerTwo = false;
     }
 
     void Reset(FullObstacle fullObstacles[])

@@ -14,6 +14,8 @@ namespace ball
 		vec::Vector2 size = {};
 		vec::Vector2 crashPoint = {};
 
+		int score = 0;
+
 		bColor color;
 	};
 

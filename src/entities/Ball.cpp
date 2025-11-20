@@ -61,6 +61,8 @@ namespace ball
 		ball.position = DEFAULT_POSITIONS;
 		ball.size = DEFAULT_SIZE;
 
+		ball.score = 0;
+
 		ball.color = FUSCHIA_B;
 	}
 

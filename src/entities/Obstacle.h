@@ -18,6 +18,9 @@ namespace obstacle
     {
         bool isActive = false;
 
+        bool scoredByPlayerOne = false;
+        bool scoredByPlayerTwo = false;
+
         vec::Vector2 position = {};
         vec::Vector2 velocity = {};
 

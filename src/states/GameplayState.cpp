@@ -22,6 +22,7 @@ namespace gameplayState
 	static bool isPaused;
 
 	static void Input();
+	static void UpdateScores(obstacle::FullObstacle obstacleArray[], bool isMultiplayer);
 
 	void Init()
 	{
@@ -109,6 +110,8 @@ namespace gameplayState
 
 			obstacle::Update(obstacles);
 
+			UpdateScores(obstacles, flappyBird::isMultiplayer);
+
 			for (int i = 0; i < obstacle::maxFullObstacles; i++)
 			{
 				if (obstacle::manager::Collide(obstacles[i], ballOne))
@@ -194,5 +197,26 @@ namespace gameplayState
 				audioManager::PlaySfx(audioManager::SfxID::SFX_JUMP_PLAYER);
 			}
 		}
+	}
+
+	static void UpdateScores(obstacle::FullObstacle obstacleArray[], bool isMultiplayer)
+	{
+		for (int i = 0; i < obstacle::maxFullObstacles; i++)
+		{
+			float obstacleRight = obstacleArray[i].position.x + obstacleArray[i].width / 2.0f;
+
+			if (!obstacleArray[i].scoredByPlayerOne && ballOne.position.x > obstacleRight && ballOne.isAlive)
+			{
+				obstacleArray[i].scoredByPlayerOne = true;
+				ballOne.score++;
+			}
+
+			if (isMultiplayer && !obstacleArray[i].scoredByPlayerTwo && ballTwo.position.x > obstacleRight && ballTwo.isAlive)
+			{
+				obstacleArray[i].scoredByPlayerTwo = true;
+				ballTwo.score++;
+			}
+		}
+
 	}
 }
