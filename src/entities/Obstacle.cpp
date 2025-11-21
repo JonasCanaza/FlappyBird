@@ -11,6 +11,7 @@ namespace obstacle
     static const float DEFAULT_GAP_SIZE = 0.35f;
     static const float MIN_GAP_CENTER = 0.3f;
     static const float MAX_GAP_CENTER = 0.7f;
+    static const float OBSTACLE_GAP = 0.6f;
 
     enum ObstaclePartIndex
     {
@@ -26,7 +27,11 @@ namespace obstacle
 
     void Init(FullObstacle& fullObstacle)
     {
-        fullObstacle = FullObstacle();
+        fullObstacle.position = DEFAULT_POSITIONS;
+        fullObstacle.velocity = DEFAULT_SPEED;
+        fullObstacle.width = DEFAULT_WIDTH;
+        fullObstacle.gapSize = DEFAULT_GAP_SIZE;
+
         Reset(fullObstacle);
     }
 
@@ -35,6 +40,8 @@ namespace obstacle
         for (int i = 0; i < maxFullObstacles; i++)
         {
             Init(fullObstacles[i]);
+
+            fullObstacles[i].position.x = DEFAULT_POSITIONS.x + (static_cast<float>(i) * OBSTACLE_GAP);
         }
     }
 
@@ -49,6 +56,8 @@ namespace obstacle
 
         if (fullObstacle.position.x + fullObstacle.width / 2.0f < 0.0f)
         {
+            fullObstacle.position.x = DEFAULT_POSITIONS.x;
+
             Reset(fullObstacle);
         }
     }
@@ -94,9 +103,7 @@ namespace obstacle
 
     void Reset(FullObstacle& fullObstacle)
     {
-        fullObstacle = FullObstacle();
-
-        fullObstacle.position = DEFAULT_POSITIONS;
+        fullObstacle.position.y = DEFAULT_POSITIONS.y;
         fullObstacle.velocity = DEFAULT_SPEED;
         fullObstacle.width = DEFAULT_WIDTH;
         fullObstacle.gapSize = DEFAULT_GAP_SIZE;
@@ -126,6 +133,8 @@ namespace obstacle
         for (int i = 0; i < maxFullObstacles; i++)
         {
             Reset(fullObstacles[i]);
+
+            fullObstacles[i].position.x = DEFAULT_POSITIONS.x + (static_cast<float>(i) * OBSTACLE_GAP);
         }
     }
 }

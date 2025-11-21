@@ -5,7 +5,7 @@
 namespace obstacle
 {
     const int obstacleParts = 2;
-    const int maxFullObstacles = 1;
+    const int maxFullObstacles = 2;
 
     struct ObstaclePart
     {
