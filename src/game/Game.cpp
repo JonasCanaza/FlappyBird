@@ -9,6 +9,7 @@
 #include "interface/Button.h"
 #include "audio/AudioManager.h"
 #include "entities/Ball.h"
+#include "entities/Obstacle.h"
 
 namespace flappyBird
 {
@@ -89,6 +90,7 @@ namespace flappyBird
 		backgroundManager::Close();
 		audioManager::Close();
 		ball::CloseTextures();
+		obstacle::CloseTextures();
 		rend::Close();
 	}
 
@@ -109,5 +111,6 @@ namespace flappyBird
 		creditsState::Init();
 
 		ball::InitTextures();
+		obstacle::InitTextures();
 	}
 }

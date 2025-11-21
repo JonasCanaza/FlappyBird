@@ -30,6 +30,7 @@ namespace obstacle
         ObstaclePart parts[obstacleParts];
     };
 
+    void InitTextures();
     void Init(FullObstacle& fullObstacle);
     void Init(FullObstacle fullObstacles[]);
 
@@ -38,6 +39,8 @@ namespace obstacle
 
     void Draw(FullObstacle& fullObstacle);
     void Draw(FullObstacle fullObstacles[]);
+
+    void CloseTextures();
 
     void Reset(FullObstacle& fullObstacle);
     void Reset(FullObstacle fullObstacles[]);

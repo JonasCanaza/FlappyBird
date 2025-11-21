@@ -2,6 +2,8 @@
 
 namespace obstacle
 {
+    static drw::SpriteData obstacleSprite;
+
     static const vec::Vector2 DEFAULT_POSITIONS = { 1.1f, 0.5f };
     static const vec::Vector2 DEFAULT_SPEED = { -0.5f, 0.0f };
     static const float DEFAULT_WIDTH = 0.15f;
@@ -15,6 +17,12 @@ namespace obstacle
         TOP_PART,
         BOTTOM_PART
     };
+
+    void InitTextures()
+    {
+        obstacleSprite.file = "res/sprites/obstacle/Obstacle.png";
+        obstacleSprite.id = drw::InitSpriteData(obstacleSprite);
+    }
 
     void Init(FullObstacle& fullObstacle)
     {
@@ -67,7 +75,7 @@ namespace obstacle
             vec::Vector2 partPos = { fullObstacle.position.x, fullObstacle.position.y + part.offsetY };
             vec::Vector2 partSize = { fullObstacle.width, part.height };
 
-            drw::Rectangle(partPos, partSize, part.color);
+            drw::Sprite(drw::spriteDataList[obstacleSprite.id], partPos, partSize);
         }
     }
 
@@ -77,6 +85,11 @@ namespace obstacle
         {
             Draw(fullObstacles[i]);
         }
+    }
+
+    void CloseTextures()
+    {
+        drw::DeInitSpriteData(obstacleSprite);
     }
 
     void Reset(FullObstacle& fullObstacle)
