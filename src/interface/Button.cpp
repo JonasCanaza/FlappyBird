@@ -6,6 +6,9 @@ namespace button
 {
 	static btn::Button templateButton;
 
+	static const vec::Vector2 BUTTON_SIZE = { 0.3f, 0.085f };
+	static const float FONT_SIZE = 0.075f;
+
 	static drw::SpriteData normalTexture;
 	static drw::SpriteData hoverTexture;
 
@@ -17,8 +20,8 @@ namespace button
 		hoverTexture.file = "res/sprites/ui/ButtonHover.png";
 		hoverTexture.id = drw::InitSpriteData(hoverTexture);
 
-		templateButton.size = { 0.3f, 0.085f };
-		templateButton.textData.fontSize = 0.075f;
+		templateButton.size = BUTTON_SIZE;
+		templateButton.textData.fontSize = FONT_SIZE;
 	}
 
 	void Close()
