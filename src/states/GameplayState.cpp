@@ -46,8 +46,22 @@ namespace gameplayState
 	static const vec::Vector2 DESCRIPTIONS_POS = { 0.5f, 0.5f };
 	static const vec::Vector2 DESCRIPTIONS_SIZE = { 1.0f, 1.0f };
 
+	// GAME OVER TEXT
+
+	static const vec::Vector2 GAME_OVER_TITLE_POS = { 0.5f, 0.5f };
+	static const vec::Vector2 GAME_OVER_SCORE_P1_POS = { 0.5f, 0.40f };
+	static const vec::Vector2 GAME_OVER_SCORE_P2_POS = { 0.5f, 0.30f };
+	static const float GAME_OVER_TITLE_SIZE = 0.15f;
+	static const float GAME_OVER_SCORE_SIZE = 0.10f;
+
+	// RESET TEXT
+
+	static const vec::Vector2 RESET_TEXT_POS = { 0.5f, 0.1f };
+	static const float RESET_TEXT_SIZE = 0.075f;
+
 	static bool isPaused;
 	static bool gameStarted;
+	static bool isGameOver;
 
 	static void Input();
 
@@ -67,6 +81,9 @@ namespace gameplayState
 
 	static void CheckCollisions();
 
+	static bool ArePlayersDead();
+	static void DrawGameOver();
+
 	void Init()
 	{
 		ball::Init(ballOne);
@@ -80,6 +97,7 @@ namespace gameplayState
 
 		isPaused = false;
 		gameStarted = false;
+		isGameOver = false;
 	}
 
 	void Update()
@@ -92,13 +110,10 @@ namespace gameplayState
 		}
 		else
 		{
-			if (gameStarted)
+			if (gameStarted && !isGameOver)
 			{
 				UpdatePauseButton();
-			}
 
-			if (gameStarted)
-			{
 				ball::Update(ballOne);
 
 				if (flappyBird::isMultiplayer)
@@ -110,6 +125,11 @@ namespace gameplayState
 
 				UpdateScores();
 				CheckCollisions();
+
+				if (ArePlayersDead())
+				{
+					isGameOver = true;
+				}
 			}
 		}
 	}
@@ -125,9 +145,12 @@ namespace gameplayState
 
 		obstacle::Draw(obstacles);
 
-		DrawScores();
+		if (!isGameOver)
+		{
+			DrawScores();
+		}
 
-		if (gameStarted)
+		if (gameStarted && !isGameOver)
 		{
 			DrawPauseButton();
 		}
@@ -143,6 +166,12 @@ namespace gameplayState
 			drw::Rectangle(TRANSPARENT_BACKGROUND, SEMITRANSPARENT_B);
 			DrawDescriptions();
 		}
+
+		if (isGameOver)
+		{
+			drw::Rectangle(TRANSPARENT_BACKGROUND, SEMITRANSPARENT_B);
+			DrawGameOver();
+		}
 	}
 
 	void Close()
@@ -155,6 +184,7 @@ namespace gameplayState
 	{
 		isPaused = false;
 		gameStarted = false;
+		isGameOver = false;
 
 		ball::Reset(ballOne);
 		ball::Reset(ballTwo);
@@ -177,9 +207,14 @@ namespace gameplayState
 		return gameStarted;
 	}
 
+	bool IsGameOver()
+	{
+		return isGameOver;
+	}
+
 	static void Input()
 	{
-		if (IsKeyPressed(KEY_ESCAPE) && gameStarted)
+		if (IsKeyPressed(KEY_ESCAPE) && gameStarted && !isGameOver)
 		{
 			audioManager::PlaySfx(audioManager::SfxID::SFX_PANEL);
 
@@ -201,6 +236,26 @@ namespace gameplayState
 				if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
 				{
 					gameStarted = true;
+				}
+			}
+		}
+		else
+		{
+			if (isGameOver)
+			{
+				if (!flappyBird::isMultiplayer)
+				{
+					if (IsKeyPressed(KEY_UP))
+					{
+						Reset();
+					}
+				}
+				else
+				{
+					if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
+					{
+						Reset();
+					}
 				}
 			}
 		}
@@ -391,6 +446,53 @@ namespace gameplayState
 
 				ball::Die(ballTwo);
 			}
+		}
+	}
+
+	static bool ArePlayersDead()
+	{
+		if (!ballOne.isAlive)
+		{
+			if (!flappyBird::isMultiplayer)
+			{
+				return true;
+			}
+
+			if (!ballTwo.isAlive)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	static void DrawGameOver()
+	{
+		drw::Text("GAME   OVER", GAME_OVER_TITLE_POS, GAME_OVER_TITLE_SIZE, { 0.0f, 0.0f }, WHITE_B);
+
+		drw::Text(("P1   Score: " + std::to_string(ballOne.score)).c_str(),
+			GAME_OVER_SCORE_P1_POS,
+			GAME_OVER_SCORE_SIZE,
+			{ 0.0f, 0.0f },
+			RED_B);
+
+		if (flappyBird::isMultiplayer)
+		{
+			drw::Text(("P2   Score: " + std::to_string(ballTwo.score)).c_str(),
+				GAME_OVER_SCORE_P2_POS,
+				GAME_OVER_SCORE_SIZE,
+				{ 0.0f, 0.0f },
+				GREEN_B);
+		}
+
+		if (!flappyBird::isMultiplayer)
+		{
+			drw::Text("Press Up Arrow to reset", RESET_TEXT_POS, RESET_TEXT_SIZE, { 0.0f, 0.0f }, WHITE_B);
+		}
+		else
+		{
+			drw::Text("Press Up Arrow or W to reset", RESET_TEXT_POS, RESET_TEXT_SIZE, { 0.0f, 0.0f }, WHITE_B);
 		}
 	}
 }

@@ -31,7 +31,7 @@ namespace flappyBird
 			//Update
 			bLib::UpdateStart();
 
-			if (!gameplayState::IsGamePaused() && gameplayState::IsGameStarted())
+			if (!gameplayState::IsGamePaused() && gameplayState::IsGameStarted() && !gameplayState::IsGameOver())
 			{
 				backgroundManager::Update();
 			}

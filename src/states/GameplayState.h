@@ -10,4 +10,5 @@ namespace gameplayState
 	void Reset();
 	bool IsGamePaused();
 	bool IsGameStarted();
+	bool IsGameOver();
 }
