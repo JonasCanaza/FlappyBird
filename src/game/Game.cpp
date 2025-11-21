@@ -94,7 +94,7 @@ namespace flappyBird
 	static void Draw()
 	{
 		drw::Begin();
-		drw::Clear(DARKGREY_B);
+		drw::Clear(DARKPURPLE_B);
 
 		backgroundManager::Draw();
 
