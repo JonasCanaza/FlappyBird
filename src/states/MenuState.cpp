@@ -29,8 +29,8 @@ namespace menuState
 
 	static drw::TextData versionTextData;
 
-	static const vec::Vector2 VERSION_TEXT_POS = { 0.97f, 0.045f };
-	static const float VERSION_TEXT_SIZE = 0.05f;
+	static const vec::Vector2 VERSION_TEXT_POS = { 0.95f, 0.045f };
+	static const float VERSION_TEXT_SIZE = 0.1f;
 
 	// TEMPORARY BACKGROUND
 
@@ -172,7 +172,7 @@ namespace menuState
 	{
 		versionTextData.fontSize = VERSION_TEXT_SIZE;
 		versionTextData.text = "v0.4";
-		versionTextData.color = SEMITRANSPARENT_B;
+		versionTextData.color = WHITE_B;
 	}
 
 	static void DrawTextVersion()
