@@ -136,9 +136,12 @@ namespace gameplayState
 
 	void Draw()
 	{
-		ball::Draw(ballOne, ball::Player::One);
+		if (ballOne.isAlive)
+		{
+			ball::Draw(ballOne, ball::Player::One);
+		}
 
-		if (flappyBird::isMultiplayer)
+		if (flappyBird::isMultiplayer && ballTwo.isAlive)
 		{
 			ball::Draw(ballTwo, ball::Player::Two);
 		}
