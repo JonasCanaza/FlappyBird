@@ -31,7 +31,7 @@ namespace flappyBird
 			//Update
 			bLib::UpdateStart();
 
-			if (!gameplayState::GetState())
+			if (!gameplayState::IsGamePaused() && gameplayState::IsGameStarted())
 			{
 				backgroundManager::Update();
 			}
@@ -87,6 +87,7 @@ namespace flappyBird
 			drw::End();
 		}
 
+		gameplayState::Close();
 		backgroundManager::Close();
 		audioManager::Close();
 		ball::CloseTextures();

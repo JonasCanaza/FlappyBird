@@ -39,7 +39,15 @@ namespace gameplayState
 	static const vec::Vector2 PLAYER_TWO_TEXT_POS = { 0.2f, 0.9f };
 	static const float SCORE_TEXT_SIZE = 0.075f;
 
+	// DESCRIPTIONS
+
+	static drw::SpriteData howToPlayAlone;
+	static drw::SpriteData howToPlayMultiplayer;
+	static const vec::Vector2 DESCRIPTIONS_POS = { 0.5f, 0.5f };
+	static const vec::Vector2 DESCRIPTIONS_SIZE = { 1.0f, 1.0f };
+
 	static bool isPaused;
+	static bool gameStarted;
 
 	static void Input();
 
@@ -54,6 +62,9 @@ namespace gameplayState
 	static void UpdateScores();
 	static void DrawScores();
 
+	static void InitDescriptions();
+	static void DrawDescriptions();
+
 	static void CheckCollisions();
 
 	void Init()
@@ -64,6 +75,11 @@ namespace gameplayState
 
 		InitPauseButton();
 		InitButtons();
+
+		InitDescriptions();
+
+		isPaused = false;
+		gameStarted = false;
 	}
 
 	void Update()
@@ -76,19 +92,25 @@ namespace gameplayState
 		}
 		else
 		{
-			UpdatePauseButton();
-
-			ball::Update(ballOne);
-
-			if (flappyBird::isMultiplayer)
+			if (gameStarted)
 			{
-				ball::Update(ballTwo);
+				UpdatePauseButton();
 			}
 
-			obstacle::Update(obstacles);
+			if (gameStarted)
+			{
+				ball::Update(ballOne);
 
-			UpdateScores();
-			CheckCollisions();
+				if (flappyBird::isMultiplayer)
+				{
+					ball::Update(ballTwo);
+				}
+
+				obstacle::Update(obstacles);
+
+				UpdateScores();
+				CheckCollisions();
+			}
 		}
 	}
 
@@ -105,18 +127,34 @@ namespace gameplayState
 
 		DrawScores();
 
-		DrawPauseButton();
+		if (gameStarted)
+		{
+			DrawPauseButton();
+		}
 
 		if (isPaused)
 		{
 			drw::Rectangle(TRANSPARENT_BACKGROUND, SEMITRANSPARENT_B);
 			DrawButtons();
 		}
+
+		if (!gameStarted)
+		{
+			drw::Rectangle(TRANSPARENT_BACKGROUND, SEMITRANSPARENT_B);
+			DrawDescriptions();
+		}
+	}
+
+	void Close()
+	{
+		drw::DeInitSpriteData(howToPlayAlone);
+		drw::DeInitSpriteData(howToPlayMultiplayer);
 	}
 
 	void Reset()
 	{
 		isPaused = false;
+		gameStarted = false;
 
 		ball::Reset(ballOne);
 		ball::Reset(ballTwo);
@@ -129,14 +167,19 @@ namespace gameplayState
 		ballTwo.color = BLUE_B;
 	}
 
-	bool GetState()
+	bool IsGamePaused()
 	{
 		return isPaused;
 	}
 
+	bool IsGameStarted()
+	{
+		return gameStarted;
+	}
+
 	static void Input()
 	{
-		if (IsKeyPressed(KEY_ESCAPE))
+		if (IsKeyPressed(KEY_ESCAPE) && gameStarted)
 		{
 			audioManager::PlaySfx(audioManager::SfxID::SFX_PANEL);
 
@@ -144,7 +187,25 @@ namespace gameplayState
 			audioManager::PauseMusic(audioManager::MusicID::MUSIC_GAMEPLAY, isPaused);
 		}
 
-		if (!isPaused)
+		if (!gameStarted)
+		{
+			if (!flappyBird::isMultiplayer)
+			{
+				if (IsKeyPressed(KEY_UP))
+				{
+					gameStarted = true;
+				}
+			}
+			else
+			{
+				if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
+				{
+					gameStarted = true;
+				}
+			}
+		}
+
+		if (!isPaused && gameStarted)
 		{
 			if (IsKeyPressed(KEY_UP) && ballOne.isAlive)
 			{
@@ -233,6 +294,7 @@ namespace gameplayState
 			audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
 
 			isPaused = false;
+			gameStarted = false;
 			flappyBird::currentState = flappyBird::GameState::MAIN_MENU;
 			audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
 			audioManager::PlayMusic(audioManager::MusicID::MUSIC_MENU);
@@ -286,6 +348,29 @@ namespace gameplayState
 				SCORE_TEXT_SIZE,
 				{ 0.0f, 0.0f },
 				GREEN_B);
+		}
+	}
+
+	static void InitDescriptions()
+	{
+		howToPlayAlone.file = "res/sprites/descriptions/HowToPlayAlone.png";
+		howToPlayAlone.size = DESCRIPTIONS_SIZE;
+		howToPlayAlone.id = drw::InitSpriteData(howToPlayAlone);
+
+		howToPlayMultiplayer.file = "res/sprites/descriptions/HowToPlayMultiplayer.png";
+		howToPlayMultiplayer.size = DESCRIPTIONS_SIZE;
+		howToPlayMultiplayer.id = drw::InitSpriteData(howToPlayMultiplayer);
+	}
+
+	static void DrawDescriptions()
+	{
+		if (!flappyBird::isMultiplayer)
+		{
+			drw::Sprite(drw::spriteDataList[howToPlayAlone.id], DESCRIPTIONS_POS, howToPlayAlone.size);
+		}
+		else
+		{
+			drw::Sprite(drw::spriteDataList[howToPlayMultiplayer.id], DESCRIPTIONS_POS, howToPlayMultiplayer.size);
 		}
 	}
 

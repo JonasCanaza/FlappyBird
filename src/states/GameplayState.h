@@ -5,7 +5,9 @@ namespace gameplayState
 	void Init();
 	void Update();
 	void Draw();
+	void Close();
 
 	void Reset();
-	bool GetState();
+	bool IsGamePaused();
+	bool IsGameStarted();
 }
