@@ -32,6 +32,11 @@ namespace menuState
 	static const vec::Vector2 VERSION_TEXT_POS = { 0.97f, 0.045f };
 	static const float VERSION_TEXT_SIZE = 0.05f;
 
+	// TEMPORARY BACKGROUND
+
+	static const vec::Vector4 TRANSPARENT_BACKGROUND = { 0.0f, 0.0f, 1.0f, 1.0f };
+	static const bColor BACKGROUND_COLOR = { 0, 0, 0, 48 };
+
 	static void InitLogo();
 	static void DrawLogo();
 
@@ -58,6 +63,7 @@ namespace menuState
 
 	void Draw()
 	{
+		drw::Rectangle(TRANSPARENT_BACKGROUND, BACKGROUND_COLOR);
 		DrawLogo();
 		DrawButtons();
 		DrawTextVersion();
