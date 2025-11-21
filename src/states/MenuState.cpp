@@ -13,48 +13,97 @@ namespace menuState
 	static const vec::Vector2 LOGO_SIZE = { 0.5f, 0.5f };
 	static const vec::Vector2 LOGO_POS = { 0.5f, 0.75f };
 
+	// BUTTONS
+
 	static btn::Button singlePlayer;
 	static btn::Button twoPlayers;
 	static btn::Button creditsButton;
 	static btn::Button exitButton;
 
+	static const vec::Vector2 SINGLE_PLAYER_BUTTON_POS = { 0.5f, 0.4f };
+	static const vec::Vector2 TWO_PLAYERS_BUTTON_POS = { 0.5f, 0.3f };
+	static const vec::Vector2 CREDITS_BUTTON_POS = { 0.5f, 0.2f };
+	static const vec::Vector2 EXIT_BUTTON_POS = { 0.5f, 0.1f };
+
+	// TEXT VERSION
+
 	static drw::TextData versionTextData;
+
+	static const vec::Vector2 VERSION_TEXT_POS = { 0.97f, 0.045f };
+	static const float VERSION_TEXT_SIZE = 0.05f;
 
 	static void InitLogo();
 	static void DrawLogo();
 
+	static void InitButtons();
+	static void UpdateButtons();
+	static void DrawButtons();
+
+	static void InitTextVersion();
+	static void DrawTextVersion();
+
 	void Init()
 	{
 		InitLogo();
+		InitButtons();
+		InitTextVersion();
 
+		audioManager::PlayMusic(audioManager::MusicID::MUSIC_MENU);
+	}
+
+	void Update()
+	{
+		UpdateButtons();
+	}
+
+	void Draw()
+	{
+		DrawLogo();
+		DrawButtons();
+		DrawTextVersion();
+	}
+
+	void Close()
+	{
+		drw::DeInitSpriteData(logo);
+	}
+
+	static void InitLogo()
+	{
+		logo.file = "res/sprites/ui/logo.png";
+		logo.size = LOGO_SIZE;
+		logo.id = drw::InitSpriteData(logo);
+	}
+
+	static void DrawLogo()
+	{
+		drw::Sprite(drw::spriteDataList[logo.id], LOGO_POS, logo.size);
+	}
+
+	static void InitButtons()
+	{
 		singlePlayer = button::GetTemplate();
-		singlePlayer.pos = { 0.5f, 0.4f };
+		singlePlayer.pos = SINGLE_PLAYER_BUTTON_POS;
 		singlePlayer.textData.text = "Single Player";
 		btn::Init(singlePlayer);
 
 		twoPlayers = button::GetTemplate();
-		twoPlayers.pos = { 0.5f, 0.3f };
+		twoPlayers.pos = TWO_PLAYERS_BUTTON_POS;
 		twoPlayers.textData.text = "Two Players";
 		btn::Init(twoPlayers);
 
 		creditsButton = button::GetTemplate();
-		creditsButton.pos = { 0.5f, 0.2f };
+		creditsButton.pos = CREDITS_BUTTON_POS;
 		creditsButton.textData.text = "Credits";
 		btn::Init(creditsButton);
 
 		exitButton = button::GetTemplate();
-		exitButton.pos = { 0.5f, 0.1f };
+		exitButton.pos = EXIT_BUTTON_POS;
 		exitButton.textData.text = "Exit";
 		btn::Init(exitButton);
-
-		versionTextData.fontSize = 0.05f;
-		versionTextData.text = "v0.4";
-		versionTextData.color = SEMITRANSPARENT_B;
-
-		audioManager::PlayMusic(audioManager::MusicID::MUSIC_MENU); // ESTO NO
 	}
 
-	void Update()
+	static void UpdateButtons()
 	{
 		btn::UpdateInput(singlePlayer);
 		btn::UpdateInput(twoPlayers);
@@ -93,31 +142,23 @@ namespace menuState
 		}
 	}
 
-	void Draw()
+	static void DrawButtons()
 	{
-		DrawLogo();
-
 		btn::Draw(singlePlayer);
 		btn::Draw(twoPlayers);
 		btn::Draw(creditsButton);
 		btn::Draw(exitButton);
-		drw::Text(versionTextData.text.c_str(), versionTextData, { 0.97f, 0.045f }, versionTextData.fontSize, { 0,0 }, WHITE_B);
 	}
 
-	void Close()
+	static void InitTextVersion()
 	{
-		drw::DeInitSpriteData(logo);
+		versionTextData.fontSize = VERSION_TEXT_SIZE;
+		versionTextData.text = "v0.4";
+		versionTextData.color = SEMITRANSPARENT_B;
 	}
 
-	static void InitLogo()
+	static void DrawTextVersion()
 	{
-		logo.file = "res/sprites/ui/logo.png";
-		logo.size = LOGO_SIZE;
-		logo.id = drw::InitSpriteData(logo);
-	}
-
-	static void DrawLogo()
-	{
-		drw::Sprite(drw::spriteDataList[logo.id], LOGO_POS, logo.size);
+		drw::Text(versionTextData.text.c_str(), versionTextData, VERSION_TEXT_POS, versionTextData.fontSize);
 	}
 }
