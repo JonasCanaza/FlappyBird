@@ -171,7 +171,7 @@ namespace menuState
 	static void InitTextVersion()
 	{
 		versionTextData.fontSize = VERSION_TEXT_SIZE;
-		versionTextData.text = "v0.4";
+		versionTextData.text = "v1.0";
 		versionTextData.color = WHITE_B;
 	}
 
