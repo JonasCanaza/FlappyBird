@@ -18,6 +18,9 @@ namespace flappyBird
 	bool isMultiplayer;
 
 	static void Init();
+	static void Update();
+	static void Draw();
+	static void Close();
 
 	void Play()
 	{
@@ -28,72 +31,11 @@ namespace flappyBird
 		{
 			isRunning = !rend::ShouldExit();
 
-			//Update
-			bLib::UpdateStart();
-
-			if (!gameplayState::IsGamePaused() && gameplayState::IsGameStarted() && !gameplayState::IsGameOver())
-			{
-				backgroundManager::Update();
-			}
-
-			audioManager::Update();
-
-			switch (currentState)
-			{
-			case GameState::MAIN_MENU:
-
-				menuState::Update();
-
-				break;
-			case GameState::GAMEPLAY:
-
-				gameplayState::Update();
-
-				break;
-			case GameState::CREDITS:
-
-				creditsState::Update();
-
-				break;
-			}
-
-			bLib::UpdateEnd();
-
-			//Draw
-			drw::Begin();
-			drw::Clear(DARKGREY_B);
-
-			backgroundManager::Draw();
-
-			switch (currentState)
-			{
-			case GameState::MAIN_MENU:
-
-				menuState::Draw();
-
-				break;
-			case GameState::GAMEPLAY:
-
-				gameplayState::Draw();
-
-				break;
-			case GameState::CREDITS:
-
-				creditsState::Draw();
-
-				break;
-			}
-
-			drw::End();
+			Update();
+			Draw();
 		}
 
-		gameplayState::Close();
-		menuState::Close();
-		backgroundManager::Close();
-		audioManager::Close();
-		ball::CloseTextures();
-		obstacle::CloseTextures();
-		rend::Close();
+		Close();
 	}
 
 	static void Init()
@@ -114,5 +56,78 @@ namespace flappyBird
 
 		ball::InitTextures();
 		obstacle::InitTextures();
+	}
+
+	static void Update()
+	{
+		bLib::UpdateStart();
+
+		if (!gameplayState::IsGamePaused() && gameplayState::IsGameStarted() && !gameplayState::IsGameOver())
+		{
+			backgroundManager::Update();
+		}
+
+		audioManager::Update();
+
+		switch (currentState)
+		{
+		case GameState::MAIN_MENU:
+
+			menuState::Update();
+
+			break;
+		case GameState::GAMEPLAY:
+
+			gameplayState::Update();
+
+			break;
+		case GameState::CREDITS:
+
+			creditsState::Update();
+
+			break;
+		}
+
+		bLib::UpdateEnd();
+	}
+
+	static void Draw()
+	{
+		drw::Begin();
+		drw::Clear(DARKGREY_B);
+
+		backgroundManager::Draw();
+
+		switch (currentState)
+		{
+		case GameState::MAIN_MENU:
+
+			menuState::Draw();
+
+			break;
+		case GameState::GAMEPLAY:
+
+			gameplayState::Draw();
+
+			break;
+		case GameState::CREDITS:
+
+			creditsState::Draw();
+
+			break;
+		}
+
+		drw::End();
+	}
+
+	static void Close()
+	{
+		gameplayState::Close();
+		menuState::Close();
+		backgroundManager::Close();
+		audioManager::Close();
+		ball::CloseTextures();
+		obstacle::CloseTextures();
+		rend::Close();
 	}
 }
