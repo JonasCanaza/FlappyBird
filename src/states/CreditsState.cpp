@@ -16,6 +16,11 @@ namespace creditsState
 	static const vec::Vector2 TEXT_CREDITS_POS = { 0.5f, 0.95f };
 	static const float TEXT_CREDITS_SIZE = 0.075f;
 
+	// TEMPORARY BACKGROUND
+
+	static const vec::Vector4 TRANSPARENT_BACKGROUND = { 0.0f, 0.0f, 1.0f, 1.0f };
+	static const bColor BACKGROUND_COLOR = { 0, 0, 0, 48 };
+
 	static const int BUTTON_COUNT = 7;
 
 	static btn::Button buttons[BUTTON_COUNT];
@@ -121,6 +126,7 @@ namespace creditsState
 
 	void Draw()
 	{
+		drw::Rectangle(TRANSPARENT_BACKGROUND, BACKGROUND_COLOR);
 		btn::Draw(backButton);
 
 		for (int i = 0; i < BUTTON_COUNT; i++)
