@@ -8,6 +8,9 @@ namespace btn
 namespace button
 {
 	void Init();
+	void Close();
 
 	btn::Button GetTemplate();
+	int GetNormalTextureID();
+	int GetHoverTextureID();
 }

@@ -125,6 +125,7 @@ namespace flappyBird
 		gameplayState::Close();
 		menuState::Close();
 		backgroundManager::Close();
+		button::Close();
 		audioManager::Close();
 		ball::CloseTextures();
 		obstacle::CloseTextures();

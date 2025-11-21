@@ -6,18 +6,39 @@ namespace button
 {
 	static btn::Button templateButton;
 
+	static drw::SpriteData normalTexture;
+	static drw::SpriteData hoverTexture;
+
 	void Init()
 	{
-		templateButton.size = { 0.450f, 0.085f };
+		normalTexture.file = "res/sprites/ui/ButtonNormal.png";
+		normalTexture.id = drw::InitSpriteData(normalTexture);
+
+		hoverTexture.file = "res/sprites/ui/ButtonHover.png";
+		hoverTexture.id = drw::InitSpriteData(hoverTexture);
+
+		templateButton.size = { 0.3f, 0.085f };
 		templateButton.textData.fontSize = 0.075f;
-		templateButton.useSprite = false;
-		templateButton.activeColor = SEMITRANSPARENT_B;
-		templateButton.mainColor = SEMITRANSPARENT_B;
-		templateButton.hoveredColor = SEMITRANSPARENT_B;
+	}
+
+	void Close()
+	{
+		drw::DeInitSpriteData(normalTexture);
+		drw::DeInitSpriteData(hoverTexture);
 	}
 
 	btn::Button GetTemplate()
 	{
 		return templateButton;
+	}
+
+	int GetNormalTextureID()
+	{
+		return normalTexture.id;
+	}
+
+	int GetHoverTextureID()
+	{
+		return hoverTexture.id;
 	}
 }

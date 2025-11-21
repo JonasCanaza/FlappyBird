@@ -91,21 +91,33 @@ namespace menuState
 		singlePlayer = button::GetTemplate();
 		singlePlayer.pos = SINGLE_PLAYER_BUTTON_POS;
 		singlePlayer.textData.text = "Single Player";
+		singlePlayer.mainTextureID = button::GetNormalTextureID();
+		singlePlayer.hoveredTextureID = button::GetHoverTextureID();
+		singlePlayer.useSprite = true;
 		btn::Init(singlePlayer);
 
 		twoPlayers = button::GetTemplate();
 		twoPlayers.pos = TWO_PLAYERS_BUTTON_POS;
 		twoPlayers.textData.text = "Two Players";
+		twoPlayers.mainTextureID = button::GetNormalTextureID();
+		twoPlayers.hoveredTextureID = button::GetHoverTextureID();
+		twoPlayers.useSprite = true;
 		btn::Init(twoPlayers);
 
 		creditsButton = button::GetTemplate();
 		creditsButton.pos = CREDITS_BUTTON_POS;
 		creditsButton.textData.text = "Credits";
+		creditsButton.mainTextureID = button::GetNormalTextureID();
+		creditsButton.hoveredTextureID = button::GetHoverTextureID();
+		creditsButton.useSprite = true;
 		btn::Init(creditsButton);
 
 		exitButton = button::GetTemplate();
 		exitButton.pos = EXIT_BUTTON_POS;
 		exitButton.textData.text = "Exit";
+		exitButton.mainTextureID = button::GetNormalTextureID();
+		exitButton.hoveredTextureID = button::GetHoverTextureID();
+		exitButton.useSprite = true;
 		btn::Init(exitButton);
 	}
 

@@ -284,6 +284,9 @@ namespace gameplayState
 		pauseButton = button::GetTemplate();
 		pauseButton.pos = PAUSE_BUTTON_POS;
 		pauseButton.textData.text = "Pause";
+		pauseButton.mainTextureID = button::GetNormalTextureID();
+		pauseButton.hoveredTextureID = button::GetHoverTextureID();
+		pauseButton.useSprite = true;
 		btn::Init(pauseButton);
 	}
 
@@ -311,16 +314,25 @@ namespace gameplayState
 		retryButton = button::GetTemplate();
 		retryButton.pos = RETRY_BUTTON_POS;
 		retryButton.textData.text = "Retry";
+		retryButton.mainTextureID = button::GetNormalTextureID();
+		retryButton.hoveredTextureID = button::GetHoverTextureID();
+		retryButton.useSprite = true;
 		btn::Init(retryButton);
 
 		returnButton = button::GetTemplate();
 		returnButton.pos = RETURN_BUTTON_POS;
 		returnButton.textData.text = "Return";
+		returnButton.mainTextureID = button::GetNormalTextureID();
+		returnButton.hoveredTextureID = button::GetHoverTextureID();
+		returnButton.useSprite = true;
 		btn::Init(returnButton);
 
 		exitButton = button::GetTemplate();
 		exitButton.pos = EXIT_BUTTON_POS;
 		exitButton.textData.text = "Exit to Menu";
+		exitButton.mainTextureID = button::GetNormalTextureID();
+		exitButton.hoveredTextureID = button::GetHoverTextureID();
+		exitButton.useSprite = true;
 		btn::Init(exitButton);
 	}
 

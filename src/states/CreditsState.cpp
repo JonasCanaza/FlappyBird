@@ -29,7 +29,7 @@ namespace creditsState
 	static const float SPACING_Y = 0.1f;
 	static const float BUTTON_X = 0.5f;
 
-	static const vec::Vector2 BUTTONS_CREDITS_SIZE = { 1.2f, 0.08f };
+	static const vec::Vector2 BUTTONS_CREDITS_SIZE = { 0.7f, 0.08f };
 
 	static const std::string buttonTexts[BUTTON_COUNT] =
 	{
@@ -58,6 +58,9 @@ namespace creditsState
 		backButton = button::GetTemplate();
 		backButton.pos = BACK_BUTTON_POS;
 		backButton.textData.text = "Back";
+		backButton.mainTextureID = button::GetNormalTextureID();
+		backButton.hoveredTextureID = button::GetHoverTextureID();
+		backButton.useSprite = true;
 		btn::Init(backButton);
 
 		creditsTextData.fontSize = TEXT_CREDITS_SIZE;
@@ -69,6 +72,9 @@ namespace creditsState
 			buttons[i].size = BUTTONS_CREDITS_SIZE;
 			buttons[i].pos = { BUTTON_X, START_Y + (i * SPACING_Y) };
 			buttons[i].textData.text = buttonTexts[i];
+			buttons[i].mainTextureID = button::GetNormalTextureID();
+			buttons[i].hoveredTextureID = button::GetHoverTextureID();
+			buttons[i].useSprite = true;
 			btn::Init(buttons[i]);
 		}
 	}
