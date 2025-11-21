@@ -9,6 +9,10 @@
 
 namespace menuState
 {
+	static drw::SpriteData logo;
+	static const vec::Vector2 LOGO_SIZE = { 0.5f, 0.5f };
+	static const vec::Vector2 LOGO_POS = { 0.5f, 0.75f };
+
 	static btn::Button singlePlayer;
 	static btn::Button twoPlayers;
 	static btn::Button creditsButton;
@@ -16,25 +20,30 @@ namespace menuState
 
 	static drw::TextData versionTextData;
 
+	static void InitLogo();
+	static void DrawLogo();
+
 	void Init()
 	{
+		InitLogo();
+
 		singlePlayer = button::GetTemplate();
-		singlePlayer.pos = { 0.5f, 0.5f };
+		singlePlayer.pos = { 0.5f, 0.4f };
 		singlePlayer.textData.text = "Single Player";
 		btn::Init(singlePlayer);
 
 		twoPlayers = button::GetTemplate();
-		twoPlayers.pos = { 0.5f, 0.4f };
+		twoPlayers.pos = { 0.5f, 0.3f };
 		twoPlayers.textData.text = "Two Players";
 		btn::Init(twoPlayers);
 
 		creditsButton = button::GetTemplate();
-		creditsButton.pos = { 0.5f, 0.3f };
+		creditsButton.pos = { 0.5f, 0.2f };
 		creditsButton.textData.text = "Credits";
 		btn::Init(creditsButton);
 
 		exitButton = button::GetTemplate();
-		exitButton.pos = { 0.5f, 0.2f };
+		exitButton.pos = { 0.5f, 0.1f };
 		exitButton.textData.text = "Exit";
 		btn::Init(exitButton);
 
@@ -86,10 +95,29 @@ namespace menuState
 
 	void Draw()
 	{
+		DrawLogo();
+
 		btn::Draw(singlePlayer);
 		btn::Draw(twoPlayers);
 		btn::Draw(creditsButton);
 		btn::Draw(exitButton);
 		drw::Text(versionTextData.text.c_str(), versionTextData, { 0.97f, 0.045f }, versionTextData.fontSize, { 0,0 }, WHITE_B);
+	}
+
+	void Close()
+	{
+		drw::DeInitSpriteData(logo);
+	}
+
+	static void InitLogo()
+	{
+		logo.file = "res/sprites/ui/logo.png";
+		logo.size = LOGO_SIZE;
+		logo.id = drw::InitSpriteData(logo);
+	}
+
+	static void DrawLogo()
+	{
+		drw::Sprite(drw::spriteDataList[logo.id], LOGO_POS, logo.size);
 	}
 }
