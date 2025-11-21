@@ -59,6 +59,12 @@ namespace gameplayState
 	static const vec::Vector2 RESET_TEXT_POS = { 0.5f, 0.1f };
 	static const float RESET_TEXT_SIZE = 0.075f;
 
+	// BACK BUTTON
+
+	static btn::Button backButton;
+	static const vec::Vector2 BACK_BUTTON_POS = { 0.915f, 0.075f };
+	static const vec::Vector2 BACK_BUTTON_SIZE = { 0.15f, 0.1f };
+
 	static bool isPaused;
 	static bool gameStarted;
 	static bool isGameOver;
@@ -84,6 +90,9 @@ namespace gameplayState
 	static bool ArePlayersDead();
 	static void DrawGameOver();
 
+	static void InitBackButton();
+	static void UpdateBackButton();
+
 	void Init()
 	{
 		ball::Init(ballOne);
@@ -94,6 +103,7 @@ namespace gameplayState
 		InitButtons();
 
 		InitDescriptions();
+		InitBackButton();
 
 		isPaused = false;
 		gameStarted = false;
@@ -130,6 +140,10 @@ namespace gameplayState
 				{
 					isGameOver = true;
 				}
+			}
+			else
+			{
+				UpdateBackButton();
 			}
 		}
 	}
@@ -174,6 +188,11 @@ namespace gameplayState
 		{
 			drw::Rectangle(TRANSPARENT_BACKGROUND, SEMITRANSPARENT_B);
 			DrawGameOver();
+		}
+
+		if (!gameStarted || isGameOver)
+		{
+			btn::Draw(backButton);
 		}
 	}
 
@@ -508,6 +527,36 @@ namespace gameplayState
 		else
 		{
 			drw::Text("Press Up Arrow or W to reset", RESET_TEXT_POS, RESET_TEXT_SIZE, { 0.0f, 0.0f }, WHITE_B);
+		}
+	}
+
+	static void InitBackButton()
+	{
+		backButton = button::GetTemplate();
+		backButton.pos = BACK_BUTTON_POS;
+		backButton.size = BACK_BUTTON_SIZE;
+		backButton.textData.text = "Back";
+		backButton.mainTextureID = button::GetNormalTextureID();
+		backButton.hoveredTextureID = button::GetHoverTextureID();
+		backButton.useSprite = true;
+		btn::Init(backButton);
+	}
+
+	static void UpdateBackButton()
+	{
+		btn::UpdateInput(backButton);
+
+		if (backButton.signal)
+		{
+			audioManager::PlaySfx(audioManager::SfxID::SFX_BUTTON_CLICK);
+
+			isPaused = false;
+			gameStarted = false;
+			isGameOver = false;
+
+			flappyBird::currentState = flappyBird::GameState::MAIN_MENU;
+			audioManager::StopMusic(audioManager::MusicID::MUSIC_GAMEPLAY);
+			audioManager::PlayMusic(audioManager::MusicID::MUSIC_MENU);
 		}
 	}
 }
